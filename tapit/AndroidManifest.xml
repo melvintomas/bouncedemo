@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.Tomas.tapit"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="8" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <activity
+            android:name=".TapitActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".GameActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity android:name=".GameOverActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity android:name=".DifficultyActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity android:name=".HighScoreActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity android:name=".ScoreActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity android:name=".CountDownActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+        <activity android:name=".PauseActivity"
+            android:theme="@android:style/Theme.Light.NoTitleBar">
+        </activity>
+    </application>
+
+</manifest>

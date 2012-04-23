@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="34dp"
+        android:text="High Scores"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/name1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView1"
+        android:layout_marginTop="57dp"
+        android:layout_toLeftOf="@+id/textView1"
+        android:text="1. Ana" />
+    
+     <TextView
+        android:id="@+id/name2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name1"
+        android:layout_below="@+id/name1"
+        android:layout_marginTop="15dp"
+        android:text="2. Bob" />
+
+    <TextView
+        android:id="@+id/name3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name2"
+        android:layout_below="@+id/name2"
+        android:layout_marginTop="15dp"
+        android:text="3. Carol" />
+
+    <TextView
+        android:id="@+id/name4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name3"
+        android:layout_below="@+id/name3"
+        android:layout_marginTop="15dp"
+        android:text="4. David" />
+
+    <TextView
+        android:id="@+id/name5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/name4"
+        android:layout_below="@+id/name4"
+        android:layout_marginTop="15dp"
+        android:text="5. Emily" />
+
+    <TextView
+        android:id="@+id/score1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name1"
+        android:layout_alignBottom="@+id/name1"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="100000" />
+
+    <TextView
+        android:id="@+id/score2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name2"
+        android:layout_alignBottom="@+id/name2"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="100000" />
+
+    <TextView
+        android:id="@+id/score3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name3"
+        android:layout_alignBottom="@+id/name3"
+        android:layout_alignLeft="@+id/score2"
+        android:text="10000" />
+
+    <TextView
+        android:id="@+id/score4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/name5"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="1000" />
+
+    <TextView
+        android:id="@+id/score5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/name5"
+        android:layout_alignBottom="@+id/name5"
+        android:layout_toRightOf="@+id/textView1"
+        android:text="100" />
+
+</RelativeLayout>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/game"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/command"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="22dp"
+        android:text="TAP IT: BLUE"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/command"
+        android:layout_centerHorizontal="true"
+        android:text="Your score: 0"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <Button
+        android:id="@+id/pink"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/score"
+        android:layout_marginRight="25dp"
+        android:layout_marginTop="45dp"
+        android:onClick="pink"
+        android:text="Pink" />
+
+    <Button
+        android:id="@+id/purple"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_alignBaseline="@+id/pink"
+        android:layout_alignBottom="@+id/pink"
+        android:layout_toLeftOf="@+id/pink"
+        android:onClick="purple"
+        android:text="Purple" />
+
+    <Button
+        android:id="@+id/green"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_alignLeft="@+id/purple"
+        android:layout_below="@+id/purple"
+        android:onClick="green"
+        android:text="Green" />
+
+    <Button
+        android:id="@+id/blue"
+        android:layout_width="135dp"
+        android:layout_height="135dp"
+        android:layout_below="@+id/pink"
+        android:layout_toRightOf="@+id/purple"
+        android:onClick="blue"
+        android:text="Blue" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/blue"
+        android:layout_marginBottom="16dp"
+        android:onClick="pause"
+        android:text="||" />
+
+    <TextView
+        android:id="@+id/difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button12"
+        android:layout_alignBottom="@+id/button12"
+        android:layout_alignLeft="@+id/green"
+        android:text="Easy"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+</RelativeLayout>
