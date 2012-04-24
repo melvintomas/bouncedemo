@@ -32,10 +32,7 @@ public class GameActivity extends Activity{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		
-		
-		
+		// TODO Auto-generated method stub				
 		super.onCreate(savedInstanceState);
 		
 		Log.d("GAMEACTIVITY", "OnCreate: ");
@@ -54,18 +51,13 @@ public class GameActivity extends Activity{
         
         d = findViewById(R.id.blue).getBackground();  
         filter = new PorterDuffColorFilter(Color.rgb(0, 102, 102), PorterDuff.Mode.SRC_ATOP);  
-        d.setColorFilter(filter);  
-        
-        
-        
+        d.setColorFilter(filter);     
         
         getDifficultyText().setText(getBrain().getDifficultyText());
-        
 		prep();
 		new Timer().execute();
 		isPlaying = true;
-		
-		
+	
 		Log.d("GAMEOVERACTIVITY", "onCreate: " + getBrain().difficulty);
 		vibe = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
@@ -73,15 +65,11 @@ public class GameActivity extends Activity{
 	
 	public class Timer extends AsyncTask<String, Integer, String>{
 		
-
 		
-
-
+		
 		@Override
 		protected String doInBackground(String... params) {
-
-			while(isPlaying && timeLeft>0){
-				
+			while(isPlaying && timeLeft>0){				
 				try {
 					Thread.sleep(100);
 					timeLeft -= 100;
@@ -101,8 +89,6 @@ public class GameActivity extends Activity{
 	}
 	
 	
-	
-
 	
 	
 	@Override
@@ -199,7 +185,6 @@ public class GameActivity extends Activity{
 	
 	void gameOver(String reason){
 		isPlaying = false;
-		Log.d("GAMEACTIVITY", "gameOver: " + checkIfHighScore());
 		
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		if (checkIfHighScore() <= 5){
@@ -217,29 +202,33 @@ public class GameActivity extends Activity{
 	}
 	
 	int checkIfHighScore(){
-		Log.d("GAMEACTIVITY", "CheckIfHighScore: " + getBrain().getScore());
+		Log.d("GAMEACTIVITY", "CheckIfHighScore: (score)" + getBrain().getScore());
 		int finalScore = (getBrain().getScore());
 		SharedPreferences highScore = getSharedPreferences("tap it", 0);
-		String[] scores = highScore.getString("highScore", "1.|2.|3.|4.|5.|0|0|0|0|0").split("\\|");
-		Log.d("GAMEACTIVITY", "CheckIfHighScore: " + highScore.getString("highScore", "1.|2.|3.|4.|5.|0|0|0|0|0"));
+		String[] scores = highScore.getString("highscore", "-|-|-|-|-|0|0|0|0|0").split("\\|");
+		Log.d("GAMEACTIVITY", "CheckIfHighScore:(high score string) " + highScore.getString("highscore", "1.|2.|3.|4.|5.|0|0|0|0|0"));
+
+		if (finalScore == 0){
+			return 0;
+		}
 		if (finalScore >= Integer.parseInt(scores[5])){
-			Log.d("GAMEACTIVITY", "CheckIfHighScore: 1 "+scores[5]);
+			Log.d("GAMEACTIVITY", "CheckIfHighScore: 1 true  "+scores[5]);
 			return 1;
 		}
 		if (finalScore >= Integer.parseInt(scores[6])){
-			Log.d("GAMEACTIVITY", "CheckIfHighScore: 2 "+scores[6]);
+			Log.d("GAMEACTIVITY", "CheckIfHighScore: 2 true "+scores[6]);
 			return 2;
 		}
 		if (finalScore >= Integer.parseInt(scores[7])){
-			Log.d("GAMEACTIVITY", "CheckIfHighScore: 3 "+scores[7]);
+			Log.d("GAMEACTIVITY", "CheckIfHighScore: 3 true "+scores[7]);
 			return 3;
 		}
 		if (finalScore >= Integer.parseInt(scores[8])){
-			Log.d("GAMEACTIVITY", "CheckIfHighScore: 4 "+scores[8]);
+			Log.d("GAMEACTIVITY", "CheckIfHighScore: 4 true "+scores[8]);
 			return 4;
 		}
 		if (finalScore >= Integer.parseInt(scores[9])){
-			Log.d("GAMEACTIVITY", "CheckIfHighScore: 5 "+scores[9]);
+			Log.d("GAMEACTIVITY", "CheckIfHighScore: 5 true"+scores[9]);
 			return 5;
 		}else return 0;
 			

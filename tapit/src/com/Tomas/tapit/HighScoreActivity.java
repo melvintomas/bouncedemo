@@ -23,13 +23,8 @@ public class HighScoreActivity extends Activity{
 	
 	@Override
 	protected void onStart() {
-		Log.d("HIGHSCOREACTIVITY", "Crash?: 1");
 		SharedPreferences highScore = getSharedPreferences("tap it", 0);
-		Log.d("HIGHSCOREACTIVITY", "Crash?: 2");
-		
-		String[] scores = highScore.getString("highScore", "1.|2.|3.|4.|5.|0|0|0|0|0").split("\\|");
-		
-		
+		String[] scores = highScore.getString("highscore", "-|-|-|-|-|0|0|0|0|0").split("\\|");
 		
 		Log.d("HIGHSCOREACTIVITY", scores[0] + " " + scores.length);
 		((TextView) findViewById(R.id.name1)).setText(scores[0]);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.EditText;
 
 public class ScoreActivity extends Activity{
 	
@@ -24,19 +25,15 @@ public class ScoreActivity extends Activity{
 	protected void onStart() {
 		Log.d("SCOREACTIVITY", "onStart: ");
 		
-		SharedPreferences highScore = getSharedPreferences("tap it", 0);
-		
-		score = highScore.getString("highscore", "1.|2.|3.|4.|5.|0|0|0|0|0").split("\\|");
-		
+		SharedPreferences highScore = getSharedPreferences("tap it", 0);		
+		score = highScore.getString("highscore", "-|-|-|-|-|0|0|0|0|0").split("\\|");		
 		position = getIntent().getExtras().getInt("position");
-		
-		Log.d("SCOREACTIVITY", score[0] + " " + score.length);
-		
-		
+		Log.d("SCOREACTIVITY", " " + position);	
+		EditText input = (EditText) findViewById(R.id.scoreinput);
 		
 		
 		if(position==1){
-			findViewById(R.id.hname1).setLayoutParams(findViewById(R.id.hname1).getLayoutParams());
+			input.setLayoutParams(findViewById(R.id.hname1).getLayoutParams());
 			findViewById(R.id.hname1).setVisibility(View.INVISIBLE);
 			
 			score[4]=score[3];
@@ -50,7 +47,7 @@ public class ScoreActivity extends Activity{
 		}
 		
 		if(position==2){
-			findViewById(R.id.hname2).setLayoutParams(findViewById(R.id.hname2).getLayoutParams());
+			input.setLayoutParams(findViewById(R.id.hname2).getLayoutParams());
 			findViewById(R.id.hname2).setVisibility(View.INVISIBLE);
 			score[4]=score[3];
 			score[3]=score[2];
@@ -63,7 +60,7 @@ public class ScoreActivity extends Activity{
 		}
 		
 		if(position==3){
-			findViewById(R.id.hname3).setLayoutParams(findViewById(R.id.hname3).getLayoutParams());
+			input.setLayoutParams(findViewById(R.id.hname3).getLayoutParams());
 			findViewById(R.id.hname3).setVisibility(View.INVISIBLE);
 			score[4]=score[3];
 			score[3]=score[2];
@@ -73,14 +70,14 @@ public class ScoreActivity extends Activity{
 		}
 		
 		if(position==4){
-			findViewById(R.id.hname4).setLayoutParams(findViewById(R.id.hname4).getLayoutParams());
+			input.setLayoutParams(findViewById(R.id.hname4).getLayoutParams());
 			findViewById(R.id.hname4).setVisibility(View.INVISIBLE);
 			score[4]=score[3];
 			score[9]=score[8];
 		}
 		
 		if(position==5){
-			findViewById(R.id.hname5).setLayoutParams(findViewById(R.id.hname5).getLayoutParams());
+			input.setLayoutParams(findViewById(R.id.hname5).getLayoutParams());
 			findViewById(R.id.hname5).setVisibility(View.INVISIBLE);
 		}
 		
@@ -102,10 +99,20 @@ public class ScoreActivity extends Activity{
 		super.onStart();
 	}
 
-	@Override
-	protected void onStop() {
-		// TODO Auto-generated method stub
-		super.onStop();
+
+	
+	String encodedScore(){
+		String highScoreString = "";
+		for(int i = 0; i <=8; i++){
+			highScoreString += score[i] + "|";
+			Log.d("SCOREACTIVITY", " " + highScoreString);	
+		}
+		highScoreString += score[9];
+		return highScoreString;
+	}
+	
+	public void save(View v){
+		score[position-1]= ((EditText) findViewById(R.id.scoreinput)).getText().toString();
 		
 		SharedPreferences highScore = getSharedPreferences("tap it", 0);
 		
@@ -114,20 +121,7 @@ public class ScoreActivity extends Activity{
 
 	      // Commit the edits!
 	      editor.commit();
-	}
-	
-	String encodedScore(){
-		String highScoreString = "";
-		for(int i = 0; i <=8; i++){
-			highScoreString += score[i] + "|";
-		}
-		highScoreString += score[9];
-		return highScoreString;
-	}
-	
-	public void save(View v){
-		score[position-1]=(String) ((TextView) findViewById(R.id.hname5)).getText();
-		finish();
+	      finish();
 	}
 	
 	
