@@ -6,26 +6,22 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-public class HighScoreActivity extends Activity{
+public class HighScoreActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		
-		
-		
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.highscore);
-		
+
 	}
-	
-	
-	
-	
+
 	@Override
 	protected void onStart() {
 		SharedPreferences highScore = getSharedPreferences("tap it", 0);
-		String[] scores = highScore.getString("highscore", "-|-|-|-|-|0|0|0|0|0").split("\\|");
-		
+		String[] scores = highScore.getString("highscore",
+				"-|-|-|-|-|0|0|0|0|0").split("\\|");
+
 		Log.d("HIGHSCOREACTIVITY", scores[0] + " " + scores.length);
 		((TextView) findViewById(R.id.name1)).setText(scores[0]);
 		((TextView) findViewById(R.id.name2)).setText(scores[1]);
@@ -39,7 +35,5 @@ public class HighScoreActivity extends Activity{
 		((TextView) findViewById(R.id.score5)).setText(scores[9]);
 		super.onStart();
 	}
-
-
 
 }

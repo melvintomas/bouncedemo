@@ -1,7 +1,5 @@
 package com.Tomas.tapit;
 
-
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -10,23 +8,19 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+public class TapitActivity extends Activity {
 
-public class TapitActivity extends Activity{
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-			
 		setContentView(R.layout.emjebityscreen);
-		
 		new Timer().execute();
 	}
-	
-	public class Timer extends AsyncTask<String, Integer, String>{
+
+	public class Timer extends AsyncTask<String, Integer, String> {
 		@Override
 		protected String doInBackground(String... params) {
-			
 			try {
 				Thread.sleep(2000);
 				publishProgress(1);
@@ -39,26 +33,27 @@ public class TapitActivity extends Activity{
 			return null;
 		}
 
-
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			if(values[0]==1){
-				((ImageView) findViewById(R.id.emjebity)).setVisibility(View.GONE);
-				((ImageView) findViewById(R.id.meaghan)).setVisibility(View.VISIBLE);
-			}else run();
-			super.onProgressUpdate(values);			
+			if (values[0] == 1) {
+				((ImageView) findViewById(R.id.emjebity))
+						.setVisibility(View.GONE);
+				((ImageView) findViewById(R.id.meaghan))
+						.setVisibility(View.VISIBLE);
+			} else
+				run();
+			super.onProgressUpdate(values);
 		}
 	}
-	
-	void run(){
+
+	void run() {
 		Log.d("TAPITACTIVITY", "Run: ");
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-    	intent.setClassName(this, MainMenuActivity.class.getName());
-    	Log.d("TAPITACTIVITY", "Run: ");
-    	this.startActivity(intent);	
-    	Log.d("TAPITACTIVITY", "Success: ");
-    	finish();
+		intent.setClassName(this, MainMenuActivity.class.getName());
+		Log.d("TAPITACTIVITY", "Run: ");
+		this.startActivity(intent);
+		Log.d("TAPITACTIVITY", "Success: ");
+		finish();
 	}
-	
-	
+
 }

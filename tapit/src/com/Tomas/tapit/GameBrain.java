@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
 
-
 public class GameBrain {
 	int command;
 	int score = 0;
@@ -17,123 +16,106 @@ public class GameBrain {
 	String difficultyText;
 	SoundPool soundPool;
 
-	
-	
-	//PURPLE 1
-	//PINK 2
-	//GREEN 3
-	//BLUE 4
-	
+	// PURPLE 1
+	// PINK 2
+	// GREEN 3
+	// BLUE 4
 
-	
-	
-	
-	
-	
-	
 	public GameBrain(int difficulty) {
 		this.difficulty = difficulty;
-		if (difficulty == 3000){
+		if (difficulty == 3000) {
 			difficultyText = "EASY";
 			pointValue = 45;
 		}
-		if (difficulty == 2000){
+		if (difficulty == 2000) {
 			difficultyText = "MEDIUM";
 			pointValue = 48;
 		}
-		if (difficulty == 1500){
+		if (difficulty == 1500) {
 			difficultyText = "HARD";
 			pointValue = 50;
 		}
-		
 
 	}
-	
-	
-	public GameBrain(){
+
+	public GameBrain() {
 		System.exit(0);
 	}
 
-	boolean isCorrect(int input){
-		
-		if (input == command){
-			
+	boolean isCorrect(int input) {
+
+		if (input == command) {
+
 			return true;
-		}
-		else return false;
+		} else
+			return false;
 	}
-	
-	void earnPoints(){
-		Log.d("GAMEBRAIN", "Pre Score: "+getScore());
+
+	void earnPoints() {
+		Log.d("GAMEBRAIN", "Pre Score: " + getScore());
 		score += pointValue;
-		Log.d("GAMEBRAIN", "Post Score: "+getScore());
+		Log.d("GAMEBRAIN", "Post Score: " + getScore());
 	}
-	
-	int getNewCommand(){
-		command = random.nextInt(4)+1;
-		if(random.nextInt(99)>70){
+
+	int getNewCommand() {
+		command = random.nextInt(4) + 1;
+		if (random.nextInt(99) > 70) {
 			command += 4;
 		}
 		return command;
 	}
-	
-	int getCommand(){
+
+	int getCommand() {
 		return command;
 	}
-	
-	boolean isDouble(){
-		if (command >=5)
+
+	boolean isDouble() {
+		if (command >= 5)
 			return true;
-		else return false;
+		else
+			return false;
 	}
-	
-	void setSingle(){
+
+	void setSingle() {
 		command -= 4;
 	}
-	
-	
-	int getScore(){
+
+	int getScore() {
 		return score;
 	}
-	
-	String getStringCommand(){
+
+	String getStringCommand() {
 		getNewCommand();
-		if (command == 1){
+		if (command == 1) {
 			return "TAP IT: PURPLE!";
-		} else if (command == 2){
+		} else if (command == 2) {
 			return "TAP IT: PINK!";
-		} else if (command == 3){
+		} else if (command == 3) {
 			return "TAP IT: GREEN!";
-		} else if (command == 4){
+		} else if (command == 4) {
 			return "TAP IT: BLUE!";
-		} else if (command == 5){
+		} else if (command == 5) {
 			return "DOUBLE TAP: PURPLE!";
-		} else if (command == 6){
+		} else if (command == 6) {
 			return "DOUBLE TAP: PINK!";
-		} else if (command == 7){
+		} else if (command == 7) {
 			return "DOUBLE TAP: GREEN!";
-		} else if (command == 8){
+		} else if (command == 8) {
 			return "DOUBLE TAP: BLUE!";
-		} else return "error";
+		} else
+			return "error";
 	}
-	
-	
-	
-	int getDifficulty(){
+
+	int getDifficulty() {
 		return difficulty;
 	}
-	
-	String getDifficultyText(){
+
+	String getDifficultyText() {
 		return difficultyText;
 	}
-	
-	void restart(){
+
+	void restart() {
 		score = 0;
 	}
-	
-
-	
 
 }
-
-
