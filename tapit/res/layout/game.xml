@@ -82,4 +82,22 @@
         android:text="Easy"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:text="Small Text"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <ProgressBar
+        android:id="@+id/progressBar1"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/command"
+        android:layout_alignRight="@+id/command"
+        android:layout_below="@+id/score" />
+
 </RelativeLayout>

@@ -4,26 +4,26 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="vertical" >
 
-
-        <TextView
-            android:id="@+id/textView1"
+        <ImageView
+            android:id="@+id/splash"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="54dp"
-            android:text="Tap it!"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:layout_height="200dp"
+            android:layout_marginBottom="20dp"
+            android:src="@drawable/splash" />
 
         <Button
             android:id="@+id/play"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="90dp"
+            android:gravity="center|center_horizontal"
             android:onClick="play"
             android:text="PLAY" />
 
@@ -31,20 +31,24 @@
             android:id="@+id/highScore"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/play"
-            android:layout_below="@+id/play"
-            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal"
             android:onClick="highScore"
             android:text="HIGHSCORES" />
-        
-       <Button
+
+        <Button
+            android:id="@+id/about"
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:onClick="about"
+            android:text="ABOUT" />
+
+        <Button
             android:id="@+id/exit"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/highScore"
-            android:layout_below="@+id/highScore"
-            android:layout_marginTop="20dp"
-            android:onClick="exit"
+            android:gravity="center_horizontal"
             android:text="EXIT" />
+    </LinearLayout>
 
 </RelativeLayout>

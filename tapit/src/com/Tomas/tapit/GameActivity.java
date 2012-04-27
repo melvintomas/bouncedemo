@@ -8,11 +8,14 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 
@@ -24,11 +27,26 @@ public class GameActivity extends Activity{
 	TextView score;
 	TextView command;
 	TextView difficultyText;
+	TextView time;
 	Boolean isPlaying;
 	int commandInput;
 	int timeLeft;
 	Boolean isPaused;
 	Vibrator vibe;
+	SoundPool soundPool;
+	int soundTapIt;
+	int soundGreen;
+	int soundPurple;
+	int soundPink;
+	int soundBlue;
+	int soundDoubleGreen;
+	int soundDoublePurple;
+	int soundDoublePink;
+	int soundDoubleBlue;
+	ProgressBar progressBar;
+	
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +68,33 @@ public class GameActivity extends Activity{
         d.setColorFilter(filter);
         
         d = findViewById(R.id.blue).getBackground();  
-        filter = new PorterDuffColorFilter(Color.rgb(0, 102, 102), PorterDuff.Mode.SRC_ATOP);  
+        filter = new PorterDuffColorFilter(Color.rgb(127, 181, 255), PorterDuff.Mode.SRC_ATOP);  
         d.setColorFilter(filter);     
         
         getDifficultyText().setText(getBrain().getDifficultyText());
 		prep();
-		new Timer().execute();
+		
 		isPlaying = true;
 	
 		Log.d("GAMEOVERACTIVITY", "onCreate: " + getBrain().difficulty);
 		vibe = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+		soundPool = new SoundPool(1,AudioManager.STREAM_MUSIC, 0);
+		
+		soundGreen = soundPool.load(getApplicationContext(), R.raw.tapitgreen, 1);
+		soundBlue = soundPool.load(getApplicationContext(), R.raw.tapitblue, 1);
+		soundPink = soundPool.load(getApplicationContext(), R.raw.tapitpink, 1);
+		soundPurple = soundPool.load(getApplicationContext(), R.raw.tapitpurple, 1);
+		soundDoubleGreen = soundPool.load(getApplicationContext(), R.raw.doublegreen, 1);
+		soundDoubleBlue = soundPool.load(getApplicationContext(), R.raw.doubleblue, 1);
+		soundDoublePink = soundPool.load(getApplicationContext(), R.raw.doublepink, 1);
+		soundDoublePurple = soundPool.load(getApplicationContext(), R.raw.doublepurple, 1);
+		new Timer().execute();
+		
+		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
+		progressBar.setMax(getBrain().getDifficulty());
+		
+		
+		
 
 	}
 	
@@ -69,11 +104,14 @@ public class GameActivity extends Activity{
 		
 		@Override
 		protected String doInBackground(String... params) {
+			hearCommand(getBrain().getCommand());
 			while(isPlaying && timeLeft>0){				
+				
 				try {
-					Thread.sleep(100);
-					timeLeft -= 100;
+					Thread.sleep(1);
+					timeLeft -= 1;
 					Log.d("GAMEACTIVITY", "TimeLeft: " + timeLeft);
+					publishProgress();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();					
@@ -85,6 +123,14 @@ public class GameActivity extends Activity{
 			if (isPlaying && !isPaused)
 				gameOver("TOO SLOW!");
 			return null;
+		}
+
+		@Override
+		protected void onProgressUpdate(Integer... values) {
+			// TODO Auto-generated method stub
+			getTime().setText("Time left: "+ timeLeft);
+			progressBar.setProgress(timeLeft);
+			super.onProgressUpdate(values);
 		}	
 	}
 	
@@ -117,11 +163,19 @@ public class GameActivity extends Activity{
 		return this.command;
 	}
 	
+	TextView getTime(){
+		if (this.time == null)
+			this.time = (TextView) findViewById(R.id.time);
+		return this.time;
+	}
+	
 	TextView getDifficultyText(){
 		if (this.difficultyText == null)
 			this.difficultyText = (TextView) findViewById(R.id.difficulty);
 		return this.difficultyText;
 	}
+	
+	
 	
 	
 	
@@ -137,44 +191,38 @@ public class GameActivity extends Activity{
 		getCommand().setText(getBrain().getStringCommand());
 		timeLeft = getBrain().getDifficulty();
 		isPaused = false;
+		
 	}
 	
-	public void purple(View v){		
-		vibe.vibrate(50);
-		if (getBrain().isCorrect(0)){
-			getScore().setText("YOUR SCORE: " + getBrain().getScore());
-			getCommand().setText(getBrain().getStringCommand());
-			timeLeft = getBrain().getDifficulty();
-		} else gameOver("WRONG!");		
+	public void purple(View v){	
+		isCorrect(1);		
 	}
 	
 	public void pink(View v){
-		vibe.vibrate(50);
-		if (getBrain().isCorrect(1)){
-			getScore().setText("YOUR SCORE: " + getBrain().getScore());
-			getCommand().setText(getBrain().getStringCommand());	
-			timeLeft = getBrain().getDifficulty();
-		} else gameOver("WRONG!");	
+		isCorrect(2);	
 	}
 	
 	public void green(View v){
-		vibe.vibrate(50);
-		if (getBrain().isCorrect(2)){
-			getScore().setText("YOUR SCORE: " + getBrain().getScore());
-			getCommand().setText(getBrain().getStringCommand());
-			timeLeft = getBrain().getDifficulty();
-		} else gameOver("WRONG!");	
+		isCorrect(3);			
+	}		
+	
+	public void blue(View v){		
+		isCorrect(4);		
 	}
 	
-	
-	
-	public void blue(View v){
+	public void isCorrect(int i){
 		vibe.vibrate(50);
-		if (getBrain().isCorrect(3)){
+		if (getBrain().isDouble()){
+			if(!getBrain().isCorrect(i+4))
+				 gameOver("WRONG!");
+			getBrain().setSingle();
+		}else if (getBrain().isCorrect(i)){
+			getBrain().earnPoints();
 			getScore().setText("YOUR SCORE: " + getBrain().getScore());
 			getCommand().setText(getBrain().getStringCommand());
 			timeLeft = getBrain().getDifficulty();
-		} else gameOver("WRONG!");				
+			hearCommand(getBrain().getCommand());
+		} else gameOver("WRONG!");	
 	}
 	
 	public void pause(View v){
@@ -183,11 +231,32 @@ public class GameActivity extends Activity{
     	this.startActivity(intent);
 	}
 	
-	void gameOver(String reason){
-		isPlaying = false;
+	void hearCommand(int command){
+		if (command == 1)
+			soundPool.play(soundPurple, 1, 1, 0, 0, 1);
+		if (command == 2)
+			soundPool.play(soundPink, 1, 1, 0, 0, 1);
+		if (command == 3)
+			soundPool.play(soundGreen, 1, 1, 0, 0, 1);
+		if (command == 4)
+			soundPool.play(soundBlue, 1, 1, 0, 0, 1);
+		if (command == 5)
+			soundPool.play(soundDoublePurple, 1, 1, 0, 0, 1);
+		if (command == 6)
+			soundPool.play(soundDoublePink, 1, 1, 0, 0, 1);
+		if (command == 7)
+			soundPool.play(soundDoubleGreen, 1, 1, 0, 0, 1);
+		if (command == 8)
+			soundPool.play(soundDoubleBlue, 1, 1, 0, 0, 1);
 		
+		
+
+	}
+	
+	void gameOver(String reason){
+		isPlaying = false;		
 		Intent intent = new Intent(Intent.ACTION_VIEW);
-		if (checkIfHighScore() <= 5){
+		if (checkIfHighScore() >= 1){
 			intent.setClassName(this, ScoreActivity.class.getName());
 	    	intent.putExtra("position", checkIfHighScore());
 	    	intent.putExtra("score", getBrain().getScore() );

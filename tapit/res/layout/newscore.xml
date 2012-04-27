@@ -15,109 +15,44 @@
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/hname1"
+        android:id="@+id/scoreDisplay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
-        android:layout_marginTop="57dp"
-        android:text="1. Ana" />
-    
-     <TextView
-        android:id="@+id/hname2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hname1"
-        android:layout_below="@+id/hname1"
-        android:layout_marginTop="15dp"
-        android:text="2. Bob" />
-
-    <TextView
-        android:id="@+id/hname3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hname2"
-        android:layout_below="@+id/hname2"
-        android:layout_marginTop="15dp"
-        android:text="3. Carol" />
-
-    <TextView
-        android:id="@+id/hname4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hname3"
-        android:layout_below="@+id/hname3"
-        android:layout_marginTop="15dp"
-        android:text="4. David" />
-
-    <TextView
-        android:id="@+id/hname5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/hname4"
-        android:layout_below="@+id/hname4"
-        android:layout_marginTop="15dp"
-        android:text="5. Emily" />
-
-    <TextView
-        android:id="@+id/hscore1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hname1"
-        android:layout_alignBottom="@+id/hname1"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="100000" />
-
-    <TextView
-        android:id="@+id/hscore2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hname2"
-        android:layout_alignBottom="@+id/hname2"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="100000" />
-
-    <TextView
-        android:id="@+id/hscore3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hname3"
-        android:layout_alignBottom="@+id/hname3"
-        android:layout_alignLeft="@+id/hscore2"
-        android:text="10000" />
-
-    <TextView
-        android:id="@+id/hscore4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/hname5"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="1000" />
-
-    <TextView
-        android:id="@+id/hscore5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hname5"
-        android:layout_alignBottom="@+id/hname5"
-        android:layout_toRightOf="@+id/textView1"
-        android:text="100" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Your Score:" />
 
     <EditText
         android:id="@+id/scoreinput"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/hname1"
-        android:layout_alignBottom="@+id/hname1"
-        android:layout_alignLeft="@+id/hname1"/>
+        android:layout_below="@+id/scoreDisplay"
+        android:layout_centerHorizontal="true"
+        android:hint="name"
+        android:singleLine="true" >
+
+        <requestFocus />
+    </EditText>
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="56dp"
+        android:layout_alignLeft="@+id/textView1"
+        android:layout_below="@+id/scoreinput"
+        android:layout_marginTop="17dp"
         android:onClick="save"
         android:text="Save" />
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/save"
+        android:layout_alignBottom="@+id/save"
+        android:layout_toRightOf="@+id/save"
+        android:onClick="post"
+        android:text="Post to Facebook" />
 
 </RelativeLayout>
