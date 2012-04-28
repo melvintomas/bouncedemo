@@ -19,59 +19,71 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int close=0x7f020000;
-        public static final int emjebity_logo=0x7f020001;
-        public static final int facebook_icon=0x7f020002;
-        public static final int ic_launcher=0x7f020003;
-        public static final int meaghanwho_logo=0x7f020004;
-        public static final int splash=0x7f020005;
+        public static final int background=0x7f020000;
+        public static final int close=0x7f020001;
+        public static final int emjebity_logo=0x7f020002;
+        public static final int facebook_icon=0x7f020003;
+        public static final int ic_launcher=0x7f020004;
+        public static final int meaghanwho_logo=0x7f020005;
+        public static final int splash=0x7f020006;
     }
     public static final class id {
-        public static final int Button01=0x7f070009;
-        public static final int Button02=0x7f07000a;
-        public static final int about=0x7f070028;
-        public static final int blue=0x7f070013;
-        public static final int button1=0x7f070008;
-        public static final int button12=0x7f070014;
-        public static final int button2=0x7f070019;
-        public static final int command=0x7f07000e;
-        public static final int difficulty=0x7f070015;
-        public static final int emjebity=0x7f07000b;
-        public static final int exit=0x7f070029;
-        public static final int game=0x7f07000d;
-        public static final int go=0x7f070007;
-        public static final int green=0x7f070012;
-        public static final int highScore=0x7f070027;
-        public static final int imageView1=0x7f070002;
-        public static final int imageView2=0x7f070003;
-        public static final int linearLayout1=0x7f070024;
-        public static final int meaghan=0x7f07000c;
-        public static final int name1=0x7f07001a;
-        public static final int name2=0x7f07001b;
-        public static final int name3=0x7f07001c;
-        public static final int name4=0x7f07001d;
-        public static final int name5=0x7f07001e;
-        public static final int one=0x7f070004;
-        public static final int pink=0x7f070010;
-        public static final int play=0x7f070026;
+        public static final int about=0x7f07002f;
+        public static final int back=0x7f07002b;
+        public static final int blue=0x7f070014;
+        public static final int button1=0x7f070034;
+        public static final int button12=0x7f070015;
+        public static final int changeDifficultyG=0x7f07001a;
+        public static final int changeDifficultyP=0x7f070036;
+        public static final int command=0x7f07000f;
+        public static final int difficulty=0x7f070016;
+        public static final int easy=0x7f070009;
+        public static final int emjebity=0x7f07000c;
+        public static final int exitM=0x7f070030;
+        public static final int game=0x7f07000e;
+        public static final int go=0x7f070006;
+        public static final int green=0x7f070013;
+        public static final int hard=0x7f07000b;
+        public static final int highScoreH=0x7f07001c;
+        public static final int highScoreM=0x7f07002e;
+        public static final int imageView1=0x7f070003;
+        public static final int imageView2=0x7f070004;
+        public static final int linearLayout1=0x7f070002;
+        public static final int linearLayout2=0x7f07001f;
+        public static final int linearLayout3=0x7f070022;
+        public static final int linearLayout4=0x7f070025;
+        public static final int linearLayout5=0x7f070028;
+        public static final int meaghan=0x7f07000d;
+        public static final int medium=0x7f07000a;
+        public static final int menuG=0x7f07001b;
+        public static final int menuP=0x7f070037;
+        public static final int name1=0x7f07001d;
+        public static final int name2=0x7f070020;
+        public static final int name3=0x7f070023;
+        public static final int name4=0x7f070026;
+        public static final int name5=0x7f070029;
+        public static final int one=0x7f070005;
+        public static final int pink=0x7f070011;
+        public static final int play=0x7f07002d;
         public static final int progressBar1=0x7f070017;
-        public static final int purple=0x7f070011;
+        public static final int purple=0x7f070012;
         public static final int reason=0x7f070018;
-        public static final int save=0x7f07002c;
-        public static final int score=0x7f07000f;
-        public static final int score1=0x7f07001f;
-        public static final int score2=0x7f070020;
-        public static final int score3=0x7f070021;
-        public static final int score4=0x7f070022;
-        public static final int score5=0x7f070023;
-        public static final int scoreDisplay=0x7f07002a;
-        public static final int scoreinput=0x7f07002b;
-        public static final int splash=0x7f070025;
+        public static final int restart=0x7f070019;
+        public static final int resume=0x7f070035;
+        public static final int save=0x7f070033;
+        public static final int score=0x7f070010;
+        public static final int score1=0x7f07001e;
+        public static final int score2=0x7f070021;
+        public static final int score3=0x7f070024;
+        public static final int score4=0x7f070027;
+        public static final int score5=0x7f07002a;
+        public static final int scoreDisplay=0x7f070031;
+        public static final int scoreinput=0x7f070032;
+        public static final int splash=0x7f07002c;
         public static final int textView1=0x7f070000;
         public static final int textView2=0x7f070001;
-        public static final int three=0x7f070006;
-        public static final int time=0x7f070016;
-        public static final int two=0x7f070005;
+        public static final int three=0x7f070008;
+        public static final int two=0x7f070007;
     }
     public static final class layout {
         public static final int about=0x7f030000;
@@ -84,7 +96,6 @@ public final class R {
         public static final int main=0x7f030007;
         public static final int newscore=0x7f030008;
         public static final int pause=0x7f030009;
-        public static final int test=0x7f03000a;
     }
     public static final class raw {
         public static final int blue=0x7f050000;
@@ -96,12 +107,13 @@ public final class R {
         public static final int longbuzz=0x7f050006;
         public static final int pink=0x7f050007;
         public static final int purple=0x7f050008;
-        public static final int shortbuzz=0x7f050009;
-        public static final int tapit=0x7f05000a;
-        public static final int tapitblue=0x7f05000b;
-        public static final int tapitgreen=0x7f05000c;
-        public static final int tapitpink=0x7f05000d;
-        public static final int tapitpurple=0x7f05000e;
+        public static final int shakeit=0x7f050009;
+        public static final int shortbuzz=0x7f05000a;
+        public static final int tapit=0x7f05000b;
+        public static final int tapitblue=0x7f05000c;
+        public static final int tapitgreen=0x7f05000d;
+        public static final int tapitpink=0x7f05000e;
+        public static final int tapitpurple=0x7f05000f;
     }
     public static final class string {
         public static final int app_name=0x7f060001;

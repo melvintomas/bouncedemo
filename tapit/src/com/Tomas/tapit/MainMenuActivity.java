@@ -2,6 +2,7 @@ package com.Tomas.tapit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,9 +12,6 @@ import android.widget.Button;
 
 public class MainMenuActivity extends Activity {
 	Animation pushLeftIn;
-	Button play;
-	Button highScore;
-	Button exit;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -22,6 +20,7 @@ public class MainMenuActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		pushLeftIn = AnimationUtils.loadAnimation(this, R.anim.push_left_in);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 	@Override
@@ -29,8 +28,9 @@ public class MainMenuActivity extends Activity {
 		super.onWindowFocusChanged(hasFocus);
 		if (hasFocus) {
 			((Button) findViewById(R.id.play)).startAnimation(pushLeftIn);
-			((Button) findViewById(R.id.highScore)).startAnimation(pushLeftIn);
-			((Button) findViewById(R.id.exit)).startAnimation(pushLeftIn);
+			((Button) findViewById(R.id.highScoreM)).startAnimation(pushLeftIn);
+			((Button) findViewById(R.id.about)).startAnimation(pushLeftIn);
+			((Button) findViewById(R.id.exitM)).startAnimation(pushLeftIn);
 		}
 	}
 
@@ -40,7 +40,7 @@ public class MainMenuActivity extends Activity {
 		this.startActivity(intent);
 	}
 
-	public void highScore(View v) {
+	public void highScoreM(View v) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setClassName(this, HighScoreActivity.class.getName());
 		this.startActivity(intent);
@@ -52,7 +52,7 @@ public class MainMenuActivity extends Activity {
 		this.startActivity(intent);
 	}
 
-	public void exit(View v) {
+	public void exitM(View v) {
 		finish();
 	}
 

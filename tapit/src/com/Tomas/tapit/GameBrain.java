@@ -43,9 +43,7 @@ public class GameBrain {
 	}
 
 	boolean isCorrect(int input) {
-
 		if (input == command) {
-
 			return true;
 		} else
 			return false;
@@ -57,12 +55,15 @@ public class GameBrain {
 		Log.d("GAMEBRAIN", "Post Score: " + getScore());
 	}
 
-	int getNewCommand() {
+	void getNewCommand() {
 		command = random.nextInt(4) + 1;
-		if (random.nextInt(99) > 70) {
+		int randomNum = random.nextInt(99);
+		if (randomNum > 40) {
 			command += 4;
 		}
-		return command;
+		if (randomNum > 70) {
+			command = 9;
+		}
 	}
 
 	int getCommand() {
@@ -70,7 +71,7 @@ public class GameBrain {
 	}
 
 	boolean isDouble() {
-		if (command >= 5)
+		if (command >= 5 && command <= 8)
 			return true;
 		else
 			return false;
@@ -102,8 +103,10 @@ public class GameBrain {
 			return "DOUBLE TAP: GREEN!";
 		} else if (command == 8) {
 			return "DOUBLE TAP: BLUE!";
-		} else
-			return "error";
+		} else if (command == 9) {
+			return "SHAKE IT!";
+		}
+		return "error";
 	}
 
 	int getDifficulty() {

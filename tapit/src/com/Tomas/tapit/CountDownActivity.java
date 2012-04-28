@@ -2,39 +2,46 @@ package com.Tomas.tapit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.media.SoundPool;
 
 public class CountDownActivity extends Activity {
-
+	
+	
 	SoundPool soundPool;
 	int soundShort;
 	int soundLong;
+	
+	//prevent user from going back on count down
+	@Override
+	public void onBackPressed() {				
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.countdown);
+		
 		soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 		soundShort = soundPool
 				.load(getApplicationContext(), R.raw.shortbuzz, 1);
 		soundLong = soundPool.load(getApplicationContext(), R.raw.longbuzz, 1);
 		new Timer().execute();
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 	public class Timer extends AsyncTask<String, Integer, String> {
 
 		@Override
 		protected String doInBackground(String... params) {
-
-			soundPool.play(soundShort, 1, 1, 1, 0, 1);
+			
+			
 			for (int i = 0; i <= 4; i++) {
 				publishProgress(i);
 				try {
@@ -52,7 +59,7 @@ public class CountDownActivity extends Activity {
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			if (values[0] == 0) {
-
+				soundPool.play(soundShort, 1, 1, 1, 0, 1);
 				findViewById(R.id.three).setVisibility(View.VISIBLE);
 			}
 

@@ -1,12 +1,18 @@
 package com.Tomas.tapit;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
 import android.graphics.drawable.Drawable;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.AsyncTask;
@@ -14,16 +20,19 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements SensorEventListener {
 
 	GameBrain brain;
 	TextView score;
 	TextView command;
 	TextView difficultyText;
-	TextView time;
+
 	Boolean isPlaying;
 	int commandInput;
 	int timeLeft;
@@ -39,12 +48,27 @@ public class GameActivity extends Activity {
 	int soundDoublePurple;
 	int soundDoublePink;
 	int soundDoubleBlue;
+	int soundShakeIt;
 	ProgressBar progressBar;
+	Animation fadeIn;
+	Animation fadeOut;
+	private float mLastX, mLastY, mLastZ;
+	private boolean mInitialized;
+	private SensorManager mSensorManager;
+	private Sensor mAccelerometer;
+	int shakeCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		mInitialized = false;
+		mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		mAccelerometer = mSensorManager
+				.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		mSensorManager.registerListener(this, mAccelerometer,
+				SensorManager.SENSOR_DELAY_NORMAL);
 
 		Log.d("GAMEACTIVITY", "OnCreate: ");
 		setContentView(R.layout.game);
@@ -91,11 +115,27 @@ public class GameActivity extends Activity {
 				R.raw.doublepink, 1);
 		soundDoublePurple = soundPool.load(getApplicationContext(),
 				R.raw.doublepurple, 1);
+		soundShakeIt = soundPool.load(getApplicationContext(),
+				R.raw.shakeit, 1);
 		new Timer().execute();
 
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		progressBar.setMax(getBrain().getDifficulty());
 
+		fadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
+		fadeOut = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if (hasFocus) {
+			((Button) findViewById(R.id.pink)).startAnimation(fadeIn);
+			((Button) findViewById(R.id.green)).startAnimation(fadeIn);
+			((Button) findViewById(R.id.purple)).startAnimation(fadeIn);
+			((Button) findViewById(R.id.blue)).startAnimation(fadeIn);
+		}
 	}
 
 	public class Timer extends AsyncTask<String, Integer, String> {
@@ -108,7 +148,7 @@ public class GameActivity extends Activity {
 				try {
 					Thread.sleep(1);
 					timeLeft -= 1;
-					Log.d("GAMEACTIVITY", "TimeLeft: " + timeLeft);
+
 					publishProgress();
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
@@ -126,15 +166,22 @@ public class GameActivity extends Activity {
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			// TODO Auto-generated method stub
-			getTime().setText("Time left: " + timeLeft);
 			progressBar.setProgress(timeLeft);
 			super.onProgressUpdate(values);
 		}
 	}
 
 	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == 1)
+			finish();
+		super.onActivityResult(requestCode, resultCode, data);
+	}
+
+	@Override
 	protected void onPause() {
 		isPaused = true;
+		mSensorManager.unregisterListener(this);
 		super.onPause();
 	}
 
@@ -143,6 +190,8 @@ public class GameActivity extends Activity {
 		isPaused = false;
 		timeLeft = getBrain().getDifficulty();
 		new Timer().execute();
+		mSensorManager.registerListener(this, mAccelerometer,
+				SensorManager.SENSOR_DELAY_NORMAL);
 		super.onResume();
 	}
 
@@ -158,11 +207,7 @@ public class GameActivity extends Activity {
 		return this.command;
 	}
 
-	TextView getTime() {
-		if (this.time == null)
-			this.time = (TextView) findViewById(R.id.time);
-		return this.time;
-	}
+
 
 	TextView getDifficultyText() {
 		if (this.difficultyText == null)
@@ -187,23 +232,28 @@ public class GameActivity extends Activity {
 	}
 
 	public void purple(View v) {
+		((Button) findViewById(R.id.purple)).startAnimation(fadeIn);
 		isCorrect(1);
 	}
 
 	public void pink(View v) {
+		((Button) findViewById(R.id.pink)).startAnimation(fadeIn);
 		isCorrect(2);
 	}
 
 	public void green(View v) {
+		((Button) findViewById(R.id.green)).startAnimation(fadeIn);
 		isCorrect(3);
 	}
 
 	public void blue(View v) {
+		((Button) findViewById(R.id.blue)).startAnimation(fadeIn);
 		isCorrect(4);
 	}
 
 	public void isCorrect(int i) {
 		vibe.vibrate(50);
+		shakeCount = 0;
 		if (getBrain().isDouble()) {
 			if (!getBrain().isCorrect(i + 4))
 				gameOver("WRONG!");
@@ -211,7 +261,9 @@ public class GameActivity extends Activity {
 		} else if (getBrain().isCorrect(i)) {
 			getBrain().earnPoints();
 			getScore().setText("YOUR SCORE: " + getBrain().getScore());
+			getCommand().startAnimation(fadeOut);
 			getCommand().setText(getBrain().getStringCommand());
+			getCommand().startAnimation(fadeIn);
 			timeLeft = getBrain().getDifficulty();
 			hearCommand(getBrain().getCommand());
 		} else
@@ -221,7 +273,8 @@ public class GameActivity extends Activity {
 	public void pause(View v) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setClassName(this, PauseActivity.class.getName());
-		this.startActivity(intent);
+		int requestExit = 0;
+		this.startActivityForResult(intent, requestExit);
 	}
 
 	void hearCommand(int command) {
@@ -241,7 +294,8 @@ public class GameActivity extends Activity {
 			soundPool.play(soundDoubleGreen, 1, 1, 0, 0, 1);
 		if (command == 8)
 			soundPool.play(soundDoubleBlue, 1, 1, 0, 0, 1);
-
+		if (command == 9)
+			soundPool.play(soundShakeIt, 1, 1, 0, 0, 1);
 	}
 
 	void gameOver(String reason) {
@@ -295,6 +349,40 @@ public class GameActivity extends Activity {
 			return 5;
 		} else
 			return 0;
+
+	}
+
+	@Override
+	public void onSensorChanged(SensorEvent event) {
+		float x = event.values[0];
+		float y = event.values[1];
+		float z = event.values[2];
+		if (!mInitialized) {
+			mLastX = x;
+			mLastY = y;
+			mLastZ = z;
+
+			mInitialized = true;
+		} else {
+			float deltaX = Math.abs(mLastX - x);
+			float deltaY = Math.abs(mLastY - y);
+			float deltaZ = Math.abs(mLastZ - z);
+			mLastX = x;
+			mLastY = y;
+			mLastZ = z;
+
+			if (deltaY >= 13) {
+				shakeCount++;
+				if (shakeCount == 4) {
+					isCorrect(9);
+				}
+			}
+		}
+	}
+
+	@Override
+	public void onAccuracyChanged(Sensor sensor, int accuracy) {
+		// TODO Auto-generated method stub
 
 	}
 

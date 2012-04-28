@@ -2,6 +2,7 @@ package com.Tomas.tapit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ public class TapitActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.emjebityscreen);
 		new Timer().execute();
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 
 	public class Timer extends AsyncTask<String, Integer, String> {

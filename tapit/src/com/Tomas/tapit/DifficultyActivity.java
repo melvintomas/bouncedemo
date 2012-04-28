@@ -2,8 +2,12 @@ package com.Tomas.tapit;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 
 public class DifficultyActivity extends Activity {
 
@@ -11,12 +15,26 @@ public class DifficultyActivity extends Activity {
 	final int mediumSpeed = 2000; // milliseconds
 	final int hardSpeed = 1500; // milliseconds
 	int userSpeed = 0;
+	Animation pushLeftIn;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.difficulty);
+		pushLeftIn = AnimationUtils.loadAnimation(this, R.anim.push_left_in);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+	}
+
+	@Override
+	public void onWindowFocusChanged(boolean hasFocus) {
+		super.onWindowFocusChanged(hasFocus);
+		if (hasFocus) {
+			((TextView) findViewById(R.id.easy)).startAnimation(pushLeftIn);
+			((TextView) findViewById(R.id.medium)).startAnimation(pushLeftIn);
+			((TextView) findViewById(R.id.hard)).startAnimation(pushLeftIn);
+			
+		}
 	}
 
 	public void easy(View v) {

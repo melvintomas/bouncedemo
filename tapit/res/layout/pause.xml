@@ -1,50 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:gravity="center" 
+    android:orientation="vertical" >
  
     <TextView
         android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/reason"
-        android:layout_marginTop="40dp"
+        android:layout_marginBottom="30dp"
         android:text="PAUSE"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="40dp" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/resume"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="126dp"
+        android:layout_marginTop="20dp"
         android:onClick="resume"
         android:text="RESUME" />
 
     <Button
-        android:id="@+id/Button01"
+        android:id="@+id/changeDifficultyP"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/button1"
-        android:layout_marginTop="21dp"
-        android:onClick="changeDifficulty"
+        android:layout_marginTop="20dp"
+        android:onClick="changeDifficultyP"
         android:text="CHANGE DIFFICULTY" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/menuP"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/button1"
-        android:layout_below="@+id/Button01"
-        android:layout_marginTop="21dp"
-        android:onClick="exit"
-        android:text="EXIT" />
+        android:layout_marginTop="20dp"
+        android:onClick="menuP"
+        android:text="MAIN MENU" />
 
-
-
-</RelativeLayout>
+</LinearLayout>

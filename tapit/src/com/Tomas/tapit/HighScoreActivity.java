@@ -2,8 +2,10 @@ package com.Tomas.tapit;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 public class HighScoreActivity extends Activity {
@@ -13,6 +15,7 @@ public class HighScoreActivity extends Activity {
 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.highscore);
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 	}
 
@@ -34,6 +37,10 @@ public class HighScoreActivity extends Activity {
 		((TextView) findViewById(R.id.score4)).setText(scores[8]);
 		((TextView) findViewById(R.id.score5)).setText(scores[9]);
 		super.onStart();
+	}
+	
+	public void back(View v){
+		finish();
 	}
 
 }

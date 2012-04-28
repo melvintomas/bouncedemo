@@ -1,54 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:gravity="center"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <ImageView
+        android:id="@+id/splash"
         android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/splash" />
+
+    <Button
+        android:id="@+id/play"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:gravity="center"
-        android:orientation="vertical" >
+        android:gravity="center|center_horizontal"
+        android:layout_marginTop="20dp"
+        android:onClick="play"
+        android:text="PLAY" />
 
-        <ImageView
-            android:id="@+id/splash"
-            android:layout_width="wrap_content"
-            android:layout_height="200dp"
-            android:layout_marginBottom="20dp"
-            android:src="@drawable/splash" />
+    <Button
+        android:id="@+id/highScoreM"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:onClick="highScoreM"
+        android:text="HIGHSCORES" />
 
-        <Button
-            android:id="@+id/play"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:gravity="center|center_horizontal"
-            android:onClick="play"
-            android:text="PLAY" />
+    <Button
+        android:id="@+id/about"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:onClick="about"
+        android:text="ABOUT" />
 
-        <Button
-            android:id="@+id/highScore"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:onClick="highScore"
-            android:text="HIGHSCORES" />
+    <Button
+        android:id="@+id/exitM"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:onClick="exitM"
+        android:text="EXIT" />
 
-        <Button
-            android:id="@+id/about"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:onClick="about"
-            android:text="ABOUT" />
-
-        <Button
-            android:id="@+id/exit"
-            android:layout_width="220dp"
-            android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:text="EXIT" />
-    </LinearLayout>
-
-</RelativeLayout>
+</LinearLayout>

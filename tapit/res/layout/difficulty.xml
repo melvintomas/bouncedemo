@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@drawable/background"
+    android:gravity="center"
     android:orientation="vertical" >
-
-    
-
 
         <TextView
             android:id="@+id/textView1"
@@ -18,7 +17,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/easy"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:layout_below="@+id/textView1"
@@ -28,23 +27,19 @@
             android:text="EASY" />
 
         <Button
-            android:id="@+id/Button01"
+            android:id="@+id/medium"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/button1"
-            android:layout_below="@+id/button1"
             android:layout_marginTop="20dp"
             android:onClick="medium"
             android:text="MEDIUM" />
 
         <Button
-            android:id="@+id/Button02"
+            android:id="@+id/hard"
             android:layout_width="220dp"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/Button01"
-            android:layout_below="@+id/Button01"
             android:layout_marginTop="20dp"
             android:onClick="hard"
             android:text="HARD" />
 
-</RelativeLayout>
+</LinearLayout>
