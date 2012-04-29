@@ -1,4 +1,4 @@
-package com.Tomas.tapit;
+package com.emjebity.tapit;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

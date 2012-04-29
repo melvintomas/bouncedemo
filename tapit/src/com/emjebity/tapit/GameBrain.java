@@ -1,9 +1,7 @@
-package com.Tomas.tapit;
+package com.emjebity.tapit;
 
 import java.util.Random;
 
-import android.content.res.AssetFileDescriptor;
-import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.Log;
 

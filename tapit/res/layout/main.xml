@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background"
@@ -10,7 +11,6 @@
         android:id="@+id/splash"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:src="@drawable/splash" />
 
@@ -18,8 +18,8 @@
         android:id="@+id/play"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center|center_horizontal"
-        android:layout_marginTop="20dp"
         android:onClick="play"
         android:text="PLAY" />
 
@@ -27,8 +27,8 @@
         android:id="@+id/highScoreM"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:onClick="highScoreM"
         android:text="HIGHSCORES" />
 
@@ -36,8 +36,8 @@
         android:id="@+id/about"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:onClick="about"
         android:text="ABOUT" />
 
@@ -45,9 +45,18 @@
         android:id="@+id/exitM"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:gravity="center_horizontal"
-        android:layout_marginTop="20dp"
         android:onClick="exitM"
         android:text="EXIT" />
+
+    <com.google.ads.AdView
+        android:id="@+id/ad"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        ads:adSize="BANNER"
+        ads:adUnitId="a14f9c5c29b10a0"
+        ads:loadAdOnCreate="true" >
+    </com.google.ads.AdView>
 
 </LinearLayout>

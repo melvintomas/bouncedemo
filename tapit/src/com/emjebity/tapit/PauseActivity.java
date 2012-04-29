@@ -1,68 +1,56 @@
-package com.Tomas.tapit;
+package com.emjebity.tapit;
+
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class GameOverActivity extends Activity {
+public class PauseActivity extends Activity {
 
 	Animation pushLeftIn;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.gameover);
-		
-		((TextView) findViewById(R.id.reason)).setText(getIntent().getExtras()
-				.getString("reason"));
-
+		setContentView(R.layout.pause);
 		pushLeftIn = AnimationUtils.loadAnimation(this, R.anim.push_left_in);
-		Log.d("DEBUG", "CHECK");
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	
-	
-
 	@Override
 	public void onWindowFocusChanged(boolean hasFocus) {
 		super.onWindowFocusChanged(hasFocus);
 		if (hasFocus) {
-			((Button) findViewById(R.id.restart)).startAnimation(pushLeftIn);
-			((Button) findViewById(R.id.changeDifficultyG)).startAnimation(pushLeftIn);
-			((Button) findViewById(R.id.menuG)).startAnimation(pushLeftIn);
+			((Button) findViewById(R.id.resume)).startAnimation(pushLeftIn);
+			((Button) findViewById(R.id.changeDifficultyP)).startAnimation(pushLeftIn);
+			((Button) findViewById(R.id.menuP)).startAnimation(pushLeftIn);
 		}
-		
 	}
 
-	public void restart(View v) {
+	public void resume(View v) {
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setClassName(this, CountDownActivity.class.getName());
-		intent.putExtra("difficulty",
-				getIntent().getExtras().getInt("difficulty"));
-		intent.putExtra("isNewGame", true);
-		Log.d("GAMEOVERACTIVITY",
-				"" + getIntent().getExtras().getInt("difficulty"));
+		intent.putExtra("isNewGame", false);
 		this.startActivity(intent);
 		finish();
 	}
 
-	public void changeDifficultyG(View v) {
-
+	public void changeDifficultyP(View v) {
+		setResult(1);
 		Intent intent = new Intent(Intent.ACTION_VIEW);
 		intent.setClassName(this, DifficultyActivity.class.getName());
 		this.startActivity(intent);
+		
 		finish();
 	}
 
-	public void menuG(View v) {
+	public void menuP(View v) {
+		setResult(1);
 		finish();
 	}
 

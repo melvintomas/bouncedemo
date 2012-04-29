@@ -29,12 +29,13 @@ public final class R {
     }
     public static final class id {
         public static final int about=0x7f07002f;
+        public static final int ad=0x7f070031;
         public static final int back=0x7f07002b;
         public static final int blue=0x7f070014;
-        public static final int button1=0x7f070034;
+        public static final int button1=0x7f070035;
         public static final int button12=0x7f070015;
         public static final int changeDifficultyG=0x7f07001a;
-        public static final int changeDifficultyP=0x7f070036;
+        public static final int changeDifficultyP=0x7f070037;
         public static final int command=0x7f07000f;
         public static final int difficulty=0x7f070016;
         public static final int easy=0x7f070009;
@@ -56,7 +57,7 @@ public final class R {
         public static final int meaghan=0x7f07000d;
         public static final int medium=0x7f07000a;
         public static final int menuG=0x7f07001b;
-        public static final int menuP=0x7f070037;
+        public static final int menuP=0x7f070038;
         public static final int name1=0x7f07001d;
         public static final int name2=0x7f070020;
         public static final int name3=0x7f070023;
@@ -69,16 +70,16 @@ public final class R {
         public static final int purple=0x7f070012;
         public static final int reason=0x7f070018;
         public static final int restart=0x7f070019;
-        public static final int resume=0x7f070035;
-        public static final int save=0x7f070033;
+        public static final int resume=0x7f070036;
+        public static final int save=0x7f070034;
         public static final int score=0x7f070010;
         public static final int score1=0x7f07001e;
         public static final int score2=0x7f070021;
         public static final int score3=0x7f070024;
         public static final int score4=0x7f070027;
         public static final int score5=0x7f07002a;
-        public static final int scoreDisplay=0x7f070031;
-        public static final int scoreinput=0x7f070032;
+        public static final int scoreDisplay=0x7f070032;
+        public static final int scoreinput=0x7f070033;
         public static final int splash=0x7f07002c;
         public static final int textView1=0x7f070000;
         public static final int textView2=0x7f070001;

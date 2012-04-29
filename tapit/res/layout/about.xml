@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:padding="20dp"
-        android:text="Under the direction of Samuel Joseph, PhD, two Hawaii Pacific University students created Tap It! Melvin Tomas, of emjebity, was in Joseph’s Mobile Programming course, while Meaghan Blackburn, of Meaghan Who?, was in Joseph’s Mobile Design course. As such, Tomas’ main role was programmer, and Blackburn’s role was designer." />
+        android:text="Under the direction of Samuel Joseph, PhD, two Hawaii Pacific University students created Tap It! Melvin Tomas, of emjebity, was in Joseph’s Mobile Programming course, while Meaghan Who?, was in Joseph’s Mobile Design course. As such, Tomas’ main role was programmer, and Meaghan Who’s role was designer." />
 
     <LinearLayout
         android:id="@+id/linearLayout1"

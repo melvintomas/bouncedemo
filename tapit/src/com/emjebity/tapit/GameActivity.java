@@ -1,4 +1,4 @@
-package com.Tomas.tapit;
+package com.emjebity.tapit;
 
 import android.app.Activity;
 import android.content.Context;
@@ -115,8 +115,8 @@ public class GameActivity extends Activity implements SensorEventListener {
 				R.raw.doublepink, 1);
 		soundDoublePurple = soundPool.load(getApplicationContext(),
 				R.raw.doublepurple, 1);
-		soundShakeIt = soundPool.load(getApplicationContext(),
-				R.raw.shakeit, 1);
+		soundShakeIt = soundPool
+				.load(getApplicationContext(), R.raw.shakeit, 1);
 		new Timer().execute();
 
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
@@ -207,8 +207,6 @@ public class GameActivity extends Activity implements SensorEventListener {
 		return this.command;
 	}
 
-
-
 	TextView getDifficultyText() {
 		if (this.difficultyText == null)
 			this.difficultyText = (TextView) findViewById(R.id.difficulty);
@@ -228,26 +226,21 @@ public class GameActivity extends Activity implements SensorEventListener {
 		getCommand().setText(getBrain().getStringCommand());
 		timeLeft = getBrain().getDifficulty();
 		isPaused = false;
-
 	}
 
 	public void purple(View v) {
-		((Button) findViewById(R.id.purple)).startAnimation(fadeIn);
 		isCorrect(1);
 	}
 
 	public void pink(View v) {
-		((Button) findViewById(R.id.pink)).startAnimation(fadeIn);
 		isCorrect(2);
 	}
 
 	public void green(View v) {
-		((Button) findViewById(R.id.green)).startAnimation(fadeIn);
 		isCorrect(3);
 	}
 
 	public void blue(View v) {
-		((Button) findViewById(R.id.blue)).startAnimation(fadeIn);
 		isCorrect(4);
 	}
 
