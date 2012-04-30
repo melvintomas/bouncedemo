@@ -1,13 +1,13 @@
 package com.emjebity.tapit;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -22,6 +22,7 @@ public class ScoreActivity extends Activity {
 	String[] score;
 	Facebook facebook = new Facebook("341220242599041");
 	private SharedPreferences mPrefs;
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,7 @@ public class ScoreActivity extends Activity {
 				"\\|");
 		position = getIntent().getExtras().getInt("position");
 		Log.d("SCOREACTIVITY", " " + position);
-		EditText input = (EditText) findViewById(R.id.scoreinput);
+		TextView input = (EditText) findViewById(R.id.scoreinput);
 
 		// make room for new score
 		if (position == 1) {
@@ -94,10 +95,9 @@ public class ScoreActivity extends Activity {
 		return highScoreString;
 	}
 
-	// postscore to facebook
+	// post score to facebook
 	public void post(View v) {
-		ProgressDialog progressDialog = ProgressDialog.show(this,
-				"Posting to Facebook", "Please wait ...", true);
+		
 		mPrefs = getPreferences(MODE_PRIVATE);
 		String access_token = mPrefs.getString("access_token", null);
 		long expires = mPrefs.getLong("access_expires", 0);
@@ -154,25 +154,38 @@ public class ScoreActivity extends Activity {
 			String request = facebook.request("me/feed", parameters, "POST");
 
 			Log.d("facebook", request);
+			//saveScore();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		progressDialog.dismiss();
-		saveScore();
+		((Button) findViewById(R.id.facebook)).setClickable(false);
+		
+		
 	}
 
 	public void save(View v) {
 		saveScore();
+		((Button) findViewById(R.id.save)).setClickable(false);
+		
 	}
 
 	// save score and close activity
 	void saveScore() {
-		score[position - 1] = ((EditText) findViewById(R.id.scoreinput))
+		score[position - 1] = ((TextView) findViewById(R.id.scoreinput))
 				.getText().toString();
 		SharedPreferences highScore = getSharedPreferences("tap it", 0);
 		SharedPreferences.Editor editor = highScore.edit();
 		editor.putString("highscore", encodedScore());
 		editor.commit();
+		
+	}
+	
+	public void done(View v){
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setClassName(this, GameOverActivity.class.getName());
+		intent.putExtra("difficulty", (getIntent().getExtras().getInt("difficulty")));
+		intent.putExtra("reason", (getIntent().getExtras().getInt("reason")));
+		this.startActivity(intent);
 		finish();
 	}
 

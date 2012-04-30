@@ -70,18 +70,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignRight="@+id/blue"
         android:layout_marginBottom="16dp"
-        android:onClick="pause"
-        android:text="||" />
-
-    <TextView
-        android:id="@+id/difficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/button12"
-        android:layout_alignBottom="@+id/button12"
-        android:layout_alignLeft="@+id/green"
-        android:text="Easy"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:background="@drawable/pause"
+        android:onClick="pause" />
 
     <ProgressBar
         android:id="@+id/progressBar1"
@@ -90,5 +80,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/score"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/difficulty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
+        android:layout_alignBottom="@+id/button12"
+        android:layout_alignLeft="@+id/green"
+        android:text="Easy"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

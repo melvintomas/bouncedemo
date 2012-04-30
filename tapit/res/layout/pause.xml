@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:text="PAUSE"
+        android:text="PAUSED"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="40dp" />
 

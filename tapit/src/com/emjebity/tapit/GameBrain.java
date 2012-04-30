@@ -33,6 +33,10 @@ public class GameBrain {
 			difficultyText = "HARD";
 			pointValue = 50;
 		}
+		if (difficulty == 0) {
+			difficultyText = "PRACTICE";
+			pointValue = 0;
+		}
 
 	}
 

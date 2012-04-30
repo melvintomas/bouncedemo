@@ -21,8 +21,11 @@ public class TapitActivity extends Activity {
 		new Timer().execute();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
-
+	
+	
 	public class Timer extends AsyncTask<String, Integer, String> {
+		
+		//Keep track of time
 		@Override
 		protected String doInBackground(String... params) {
 			try {
@@ -36,7 +39,8 @@ public class TapitActivity extends Activity {
 			}
 			return null;
 		}
-
+		
+		//change logos
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			if (values[0] == 1) {
@@ -49,7 +53,8 @@ public class TapitActivity extends Activity {
 			super.onProgressUpdate(values);
 		}
 	}
-
+	
+	//end activity
 	void run() {
 		Log.d("TAPITACTIVITY", "Run: ");
 		Intent intent = new Intent(Intent.ACTION_VIEW);

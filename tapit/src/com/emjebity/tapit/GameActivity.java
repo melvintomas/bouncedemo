@@ -34,6 +34,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 	TextView difficultyText;
 
 	Boolean isPlaying;
+	Boolean shakeMercy;
 	int commandInput;
 	int timeLeft;
 	Boolean isPaused;
@@ -57,6 +58,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 	private SensorManager mSensorManager;
 	private Sensor mAccelerometer;
 	int shakeCount = 0;
+	long lastUpdate;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -117,13 +119,15 @@ public class GameActivity extends Activity implements SensorEventListener {
 				R.raw.doublepurple, 1);
 		soundShakeIt = soundPool
 				.load(getApplicationContext(), R.raw.shakeit, 1);
-		new Timer().execute();
 
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		progressBar.setMax(getBrain().getDifficulty());
 
 		fadeIn = AnimationUtils.loadAnimation(this, R.anim.fadein);
 		fadeOut = AnimationUtils.loadAnimation(this, R.anim.fadeout);
+
+		lastUpdate = 0;
+		shakeMercy = false;
 
 	}
 
@@ -189,7 +193,12 @@ public class GameActivity extends Activity implements SensorEventListener {
 	protected void onResume() {
 		isPaused = false;
 		timeLeft = getBrain().getDifficulty();
-		new Timer().execute();
+		if (getIntent().getExtras().getInt("difficulty") == 0) {
+			findViewById(R.id.progressBar1).setVisibility(View.INVISIBLE);
+			findViewById(R.id.score).setVisibility(View.INVISIBLE);
+		} else {
+			new Timer().execute();
+		}
 		mSensorManager.registerListener(this, mAccelerometer,
 				SensorManager.SENSOR_DELAY_NORMAL);
 		super.onResume();
@@ -230,23 +239,28 @@ public class GameActivity extends Activity implements SensorEventListener {
 
 	public void purple(View v) {
 		isCorrect(1);
+		shakeMercy = false;
 	}
 
 	public void pink(View v) {
 		isCorrect(2);
+		shakeMercy = false;
 	}
 
 	public void green(View v) {
 		isCorrect(3);
+		shakeMercy = false;
 	}
 
 	public void blue(View v) {
 		isCorrect(4);
+		shakeMercy = false;
 	}
 
 	public void isCorrect(int i) {
 		vibe.vibrate(50);
 		shakeCount = 0;
+
 		if (getBrain().isDouble()) {
 			if (!getBrain().isCorrect(i + 4))
 				gameOver("WRONG!");
@@ -257,8 +271,13 @@ public class GameActivity extends Activity implements SensorEventListener {
 			getCommand().startAnimation(fadeOut);
 			getCommand().setText(getBrain().getStringCommand());
 			getCommand().startAnimation(fadeIn);
+
 			timeLeft = getBrain().getDifficulty();
 			hearCommand(getBrain().getCommand());
+			if (getBrain().getCommand() == 9) {
+				shakeMercy = false;
+			}
+
 		} else
 			gameOver("WRONG!");
 	}
@@ -301,9 +320,9 @@ public class GameActivity extends Activity implements SensorEventListener {
 		} else {
 			intent.setClassName(this, GameOverActivity.class.getName());
 			Log.d("GAMEOVER INTENT", "" + getBrain().getDifficulty());
-			intent.putExtra("difficulty", getBrain().getDifficulty());
-			intent.putExtra("reason", reason);
 		}
+		intent.putExtra("difficulty", getBrain().getDifficulty());
+		intent.putExtra("reason", reason);
 		this.startActivity(intent);
 		finish();
 	}
@@ -350,27 +369,34 @@ public class GameActivity extends Activity implements SensorEventListener {
 		float x = event.values[0];
 		float y = event.values[1];
 		float z = event.values[2];
+		long curTime = System.currentTimeMillis();
+
 		if (!mInitialized) {
 			mLastX = x;
 			mLastY = y;
 			mLastZ = z;
 
 			mInitialized = true;
-		} else {
-			float deltaX = Math.abs(mLastX - x);
-			float deltaY = Math.abs(mLastY - y);
-			float deltaZ = Math.abs(mLastZ - z);
+		}
+		if ((curTime - lastUpdate) > 100) {
+			long diffTime = (curTime - lastUpdate);
+			lastUpdate = curTime;
+			float speed = Math.abs(x + y + z - mLastX - mLastY - mLastZ)
+					/ diffTime * 10000;
+			if (speed > 200) {
+
+				shakeCount++;
+				if (shakeCount == 4 && !shakeMercy) {
+					shakeMercy = true;
+					isCorrect(9);
+					Log.d("SHAKEMERCY", "true " + shakeMercy);
+				}
+			}
 			mLastX = x;
 			mLastY = y;
 			mLastZ = z;
-
-			if (deltaY >= 13) {
-				shakeCount++;
-				if (shakeCount == 4) {
-					isCorrect(9);
-				}
-			}
 		}
+
 	}
 
 	@Override

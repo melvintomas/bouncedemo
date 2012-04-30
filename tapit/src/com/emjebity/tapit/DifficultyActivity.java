@@ -35,6 +35,7 @@ public class DifficultyActivity extends Activity {
 			((TextView) findViewById(R.id.easy)).startAnimation(pushLeftIn);
 			((TextView) findViewById(R.id.medium)).startAnimation(pushLeftIn);
 			((TextView) findViewById(R.id.hard)).startAnimation(pushLeftIn);
+			((TextView) findViewById(R.id.practice)).startAnimation(pushLeftIn);
 			
 		}
 	}
@@ -51,6 +52,10 @@ public class DifficultyActivity extends Activity {
 
 	public void hard(View v) {
 		userSpeed = hardSpeed;
+		runGame();
+	}
+	
+	public void practice(View v){
 		runGame();
 	}
 
