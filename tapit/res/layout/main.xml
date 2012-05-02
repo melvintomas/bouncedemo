@@ -20,7 +20,7 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center|center_horizontal"
+        android:gravity="center"
         android:onClick="play"
         android:text="PLAY" />
 
@@ -29,7 +29,7 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:onClick="highScoreM"
         android:text="HIGHSCORES" />
 
@@ -38,7 +38,7 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:onClick="about"
         android:text="ABOUT" />
 
@@ -47,7 +47,7 @@
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
+        android:gravity="center"
         android:onClick="exitM"
         android:text="EXIT" />
 

@@ -4,6 +4,7 @@ package com.emjebity.tapit;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -17,6 +18,7 @@ public class PauseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		setContentView(R.layout.pause);
 		pushLeftIn = AnimationUtils.loadAnimation(this, R.anim.push_left_in);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

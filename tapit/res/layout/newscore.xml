@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
+    android:gravity="center_horizontal"
     android:orientation="vertical" >
 
     <TextView
@@ -37,32 +38,22 @@
 
     <Button
         android:id="@+id/save"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/textView1"
-        android:layout_below="@+id/scoreinput"
-        android:layout_marginTop="17dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
         android:onClick="save"
         android:text="Save" />
 
     <Button
         android:id="@+id/facebook"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/save"
-        android:layout_alignBottom="@+id/save"
-        android:layout_toRightOf="@+id/save"
-        android:onClick="post"
-        android:text="Post to Facebook" />
-
-    <Button
-        android:id="@+id/done"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/save"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp"
-        android:onClick="done"
-        android:text="DONE" />
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:onClick="post"
+        android:text="Post to Facebook" />
+    
 
-</RelativeLayout>
+
+</LinearLayout>

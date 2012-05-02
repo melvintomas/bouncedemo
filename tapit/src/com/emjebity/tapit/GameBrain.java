@@ -10,6 +10,7 @@ public class GameBrain {
 	int score = 0;
 	int difficulty;
 	int pointValue;
+	int speed;
 	Random random = new Random();
 	String difficultyText;
 	SoundPool soundPool;
@@ -23,11 +24,11 @@ public class GameBrain {
 		this.difficulty = difficulty;
 		if (difficulty == 3000) {
 			difficultyText = "EASY";
-			pointValue = 45;
+			pointValue = 30;
 		}
 		if (difficulty == 2000) {
 			difficultyText = "MEDIUM";
-			pointValue = 48;
+			pointValue = 40;
 		}
 		if (difficulty == 1500) {
 			difficultyText = "HARD";
@@ -37,6 +38,8 @@ public class GameBrain {
 			difficultyText = "PRACTICE";
 			pointValue = 0;
 		}
+		
+		speed = 0;
 
 	}
 
@@ -121,6 +124,19 @@ public class GameBrain {
 
 	void restart() {
 		score = 0;
+	}
+	
+	int getSpeed(){
+		return difficulty-speed;
+	}
+	
+	void increaseSpeed(int speed){
+		if (difficulty - speed > 800);
+			this.speed += speed;
+	}
+	
+	void increasePointValue(int points){
+		this.pointValue += points;
 	}
 
 }

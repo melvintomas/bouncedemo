@@ -15,14 +15,24 @@
         android:layout_marginTop="54dp"
         android:text="Choose Difficulty!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-
+    
     <Button
-        android:id="@+id/easy"
+        android:id="@+id/practice"
         android:layout_width="220dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="90dp"
+        android:onClick="practice"
+        android:text="PRACTICE" />
+
+    <Button
+        android:id="@+id/easy"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/practice"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
         android:onClick="easy"
         android:text="EASY" />
 
@@ -42,12 +52,6 @@
         android:onClick="hard"
         android:text="HARD" />
 
-    <Button
-        android:id="@+id/practice"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:onClick="practice"
-        android:text="PRACTICE" />
+    
 
 </LinearLayout>

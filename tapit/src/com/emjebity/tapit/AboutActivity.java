@@ -2,6 +2,7 @@ package com.emjebity.tapit;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -12,6 +13,7 @@ public class AboutActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		setContentView(R.layout.about);
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

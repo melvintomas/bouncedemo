@@ -5,6 +5,7 @@ package com.emjebity.tapit;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -14,7 +15,7 @@ public class HighScoreActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.highscore);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);

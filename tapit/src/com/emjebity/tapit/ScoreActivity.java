@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,11 +23,11 @@ public class ScoreActivity extends Activity {
 	String[] score;
 	Facebook facebook = new Facebook("341220242599041");
 	private SharedPreferences mPrefs;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		setContentView(R.layout.newscore);
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -97,7 +98,7 @@ public class ScoreActivity extends Activity {
 
 	// post score to facebook
 	public void post(View v) {
-		
+
 		mPrefs = getPreferences(MODE_PRIVATE);
 		String access_token = mPrefs.getString("access_token", null);
 		long expires = mPrefs.getLong("access_expires", 0);
@@ -146,27 +147,33 @@ public class ScoreActivity extends Activity {
 			parameters.putString("picture",
 					"http://emjebity.com/images/images.gif");
 			parameters
-					.putString("description",
-							"Tap it! is a work-in-progress game. Coming soon to a Play Store near you!");
-			parameters.putString("link", "http://emjebity.com/tapit/");
+					.putString(
+							"description",
+							"Tap it! The fun reaction game! How fast are you? Can you tap it! double tap! shake it before the time ticks down? Save your high score, share it with Facebook and see who can be the Tap it! Master.");
+			parameters.putString("link", "https://play.google.com/store/apps/details?id=com.emjebity.tapit");
 			parameters.putString("caption", "Try and beat my score!");
 			parameters.putString("name", "Tap it!");
 			String request = facebook.request("me/feed", parameters, "POST");
 
 			Log.d("facebook", request);
-			//saveScore();
+			// saveScore();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		((Button) findViewById(R.id.facebook)).setClickable(false);
-		
-		
+
 	}
 
 	public void save(View v) {
 		saveScore();
-		((Button) findViewById(R.id.save)).setClickable(false);
-		
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setClassName(this, GameOverActivity.class.getName());
+		intent.putExtra("difficulty",
+				(getIntent().getExtras().getInt("difficulty")));
+		intent.putExtra("reason", (getIntent().getExtras().getInt("reason")));
+		this.startActivity(intent);
+		finish();
+
 	}
 
 	// save score and close activity
@@ -177,16 +184,7 @@ public class ScoreActivity extends Activity {
 		SharedPreferences.Editor editor = highScore.edit();
 		editor.putString("highscore", encodedScore());
 		editor.commit();
-		
-	}
-	
-	public void done(View v){
-		Intent intent = new Intent(Intent.ACTION_VIEW);
-		intent.setClassName(this, GameOverActivity.class.getName());
-		intent.putExtra("difficulty", (getIntent().getExtras().getInt("difficulty")));
-		intent.putExtra("reason", (getIntent().getExtras().getInt("reason")));
-		this.startActivity(intent);
-		finish();
+
 	}
 
 }

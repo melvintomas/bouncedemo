@@ -5,6 +5,7 @@ package com.emjebity.tapit;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ public class MainMenuActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Log.d("MAINMENU", "Success: ");
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		pushLeftIn = AnimationUtils.loadAnimation(this, R.anim.push_left_in);

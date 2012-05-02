@@ -59,9 +59,11 @@ public class GameActivity extends Activity implements SensorEventListener {
 	private Sensor mAccelerometer;
 	int shakeCount = 0;
 	long lastUpdate;
+	int roundCount = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
@@ -75,22 +77,22 @@ public class GameActivity extends Activity implements SensorEventListener {
 		Log.d("GAMEACTIVITY", "OnCreate: ");
 		setContentView(R.layout.game);
 		Drawable d = findViewById(R.id.pink).getBackground();
-		PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.rgb(254,
-				0, 152), PorterDuff.Mode.SRC_ATOP);
+		PorterDuffColorFilter filter = new PorterDuffColorFilter(Color.rgb(234,
+				150, 176), PorterDuff.Mode.SRC_ATOP);
 		d.setColorFilter(filter);
 
 		d = findViewById(R.id.purple).getBackground();
-		filter = new PorterDuffColorFilter(Color.rgb(102, 0, 102),
+		filter = new PorterDuffColorFilter(Color.rgb(142, 100, 156),
 				PorterDuff.Mode.SRC_ATOP);
 		d.setColorFilter(filter);
 
 		d = findViewById(R.id.green).getBackground();
-		filter = new PorterDuffColorFilter(Color.rgb(1, 204, 52),
+		filter = new PorterDuffColorFilter(Color.rgb(89, 181, 130),
 				PorterDuff.Mode.SRC_ATOP);
 		d.setColorFilter(filter);
 
 		d = findViewById(R.id.blue).getBackground();
-		filter = new PorterDuffColorFilter(Color.rgb(127, 181, 255),
+		filter = new PorterDuffColorFilter(Color.rgb(116, 198, 237),
 				PorterDuff.Mode.SRC_ATOP);
 		d.setColorFilter(filter);
 
@@ -272,10 +274,17 @@ public class GameActivity extends Activity implements SensorEventListener {
 			getCommand().setText(getBrain().getStringCommand());
 			getCommand().startAnimation(fadeIn);
 
-			timeLeft = getBrain().getDifficulty();
+			timeLeft = getBrain().getSpeed();
+			Log.d("SPEED", ""+getBrain().getSpeed());
 			hearCommand(getBrain().getCommand());
 			if (getBrain().getCommand() == 9) {
 				shakeMercy = false;
+			}
+			roundCount++;
+			if (roundCount==10){
+				roundCount = 0;
+				getBrain().increaseSpeed(10);
+				getBrain().increasePointValue(1);
 			}
 
 		} else
@@ -383,8 +392,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 			lastUpdate = curTime;
 			float speed = Math.abs(x + y + z - mLastX - mLastY - mLastZ)
 					/ diffTime * 10000;
-			if (speed > 200) {
-
+			if (speed > 180) {
 				shakeCount++;
 				if (shakeCount == 4 && !shakeMercy) {
 					shakeMercy = true;

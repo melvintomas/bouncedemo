@@ -26,6 +26,7 @@ public class CountDownActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.countdown);

@@ -4,6 +4,7 @@ package com.emjebity.tapit;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.media.AudioManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ public class GameOverActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.gameover);
 		
