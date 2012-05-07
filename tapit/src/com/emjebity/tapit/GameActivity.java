@@ -1,5 +1,8 @@
 package com.emjebity.tapit;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -20,6 +23,7 @@ import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -32,13 +36,14 @@ public class GameActivity extends Activity implements SensorEventListener {
 	TextView score;
 	TextView command;
 	TextView difficultyText;
-
+	ArrayList<LayoutParams> lp = new ArrayList<LayoutParams>();
 	Boolean isPlaying;
 	Boolean shakeMercy;
 	int commandInput;
 	int timeLeft;
 	Boolean isPaused;
 	Vibrator vibe;
+	/*
 	SoundPool soundPool;
 	int soundTapIt;
 	int soundGreen;
@@ -49,7 +54,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 	int soundDoublePurple;
 	int soundDoublePink;
 	int soundDoubleBlue;
-	int soundShakeIt;
+	int soundShakeIt;*/
 	ProgressBar progressBar;
 	Animation fadeIn;
 	Animation fadeOut;
@@ -102,7 +107,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 		isPlaying = true;
 
 		Log.d("GAMEOVERACTIVITY", "onCreate: " + getBrain().difficulty);
-		vibe = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+		vibe = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);/*
 		soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
 
 		soundGreen = soundPool.load(getApplicationContext(), R.raw.tapitgreen,
@@ -120,7 +125,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 		soundDoublePurple = soundPool.load(getApplicationContext(),
 				R.raw.doublepurple, 1);
 		soundShakeIt = soundPool
-				.load(getApplicationContext(), R.raw.shakeit, 1);
+				.load(getApplicationContext(), R.raw.shakeit, 1);*/
 
 		progressBar = (ProgressBar) findViewById(R.id.progressBar1);
 		progressBar.setMax(getBrain().getDifficulty());
@@ -130,6 +135,11 @@ public class GameActivity extends Activity implements SensorEventListener {
 
 		lastUpdate = 0;
 		shakeMercy = false;
+
+		lp.add(((Button) findViewById(R.id.purple)).getLayoutParams());
+		lp.add(((Button) findViewById(R.id.pink)).getLayoutParams());
+		lp.add(((Button) findViewById(R.id.green)).getLayoutParams());
+		lp.add(((Button) findViewById(R.id.blue)).getLayoutParams());
 
 	}
 
@@ -141,6 +151,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 			((Button) findViewById(R.id.green)).startAnimation(fadeIn);
 			((Button) findViewById(R.id.purple)).startAnimation(fadeIn);
 			((Button) findViewById(R.id.blue)).startAnimation(fadeIn);
+
 		}
 	}
 
@@ -194,7 +205,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 	@Override
 	protected void onResume() {
 		isPaused = false;
-		timeLeft = getBrain().getDifficulty();
+		timeLeft = getBrain().getSpeed();
 		if (getIntent().getExtras().getInt("difficulty") == 0) {
 			findViewById(R.id.progressBar1).setVisibility(View.INVISIBLE);
 			findViewById(R.id.score).setVisibility(View.INVISIBLE);
@@ -235,7 +246,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 	public void prep() {
 		getScore().setText("YOUR SCORE: " + getBrain().getScore());
 		getCommand().setText(getBrain().getStringCommand());
-		timeLeft = getBrain().getDifficulty();
+		timeLeft = getBrain().getSpeed();
 		isPaused = false;
 	}
 
@@ -273,15 +284,16 @@ public class GameActivity extends Activity implements SensorEventListener {
 			getCommand().startAnimation(fadeOut);
 			getCommand().setText(getBrain().getStringCommand());
 			getCommand().startAnimation(fadeIn);
-
+			randomButton();
 			timeLeft = getBrain().getSpeed();
-			Log.d("SPEED", ""+getBrain().getSpeed());
+			Log.d("SPEED", "" + getBrain().getSpeed());
 			hearCommand(getBrain().getCommand());
 			if (getBrain().getCommand() == 9) {
 				shakeMercy = false;
+				timeLeft += 100;
 			}
 			roundCount++;
-			if (roundCount==10){
+			if (roundCount == 2) {
 				roundCount = 0;
 				getBrain().increaseSpeed(10);
 				getBrain().increasePointValue(1);
@@ -300,23 +312,32 @@ public class GameActivity extends Activity implements SensorEventListener {
 
 	void hearCommand(int command) {
 		if (command == 1)
-			soundPool.play(soundPurple, 1, 1, 0, 0, 1);
+			//soundPool.play(soundPurple, 1, 1, 0, 0, 1);
+			Sound.playsPurple();
 		if (command == 2)
-			soundPool.play(soundPink, 1, 1, 0, 0, 1);
+			//soundPool.play(soundPink, 1, 1, 0, 0, 1);
+			Sound.playsPink();
 		if (command == 3)
-			soundPool.play(soundGreen, 1, 1, 0, 0, 1);
+			//soundPool.play(soundGreen, 1, 1, 0, 0, 1);
+			Sound.playsGreen();
 		if (command == 4)
-			soundPool.play(soundBlue, 1, 1, 0, 0, 1);
+			//soundPool.play(soundBlue, 1, 1, 0, 0, 1);
+			Sound.playsBlue();
 		if (command == 5)
-			soundPool.play(soundDoublePurple, 1, 1, 0, 0, 1);
+			//soundPool.play(soundDoublePurple, 1, 1, 0, 0, 1);
+			Sound.playdPurple();
 		if (command == 6)
-			soundPool.play(soundDoublePink, 1, 1, 0, 0, 1);
+			//soundPool.play(soundDoublePink, 1, 1, 0, 0, 1);
+			Sound.playdPink();
 		if (command == 7)
-			soundPool.play(soundDoubleGreen, 1, 1, 0, 0, 1);
+			//soundPool.play(soundDoubleGreen, 1, 1, 0, 0, 1);
+			Sound.playdGreen();
 		if (command == 8)
-			soundPool.play(soundDoubleBlue, 1, 1, 0, 0, 1);
+			//soundPool.play(soundDoubleBlue, 1, 1, 0, 0, 1);
+			Sound.playdBlue();
 		if (command == 9)
-			soundPool.play(soundShakeIt, 1, 1, 0, 0, 1);
+			//soundPool.play(soundShakeIt, 1, 1, 0, 0, 1);
+			Sound.playShake();
 	}
 
 	void gameOver(String reason) {
@@ -326,6 +347,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 			intent.setClassName(this, ScoreActivity.class.getName());
 			intent.putExtra("position", checkIfHighScore());
 			intent.putExtra("score", getBrain().getScore());
+			intent.putExtra("difficultyString", getBrain().getDifficultyText());
 		} else {
 			intent.setClassName(this, GameOverActivity.class.getName());
 			Log.d("GAMEOVER INTENT", "" + getBrain().getDifficulty());
@@ -392,6 +414,7 @@ public class GameActivity extends Activity implements SensorEventListener {
 			lastUpdate = curTime;
 			float speed = Math.abs(x + y + z - mLastX - mLastY - mLastZ)
 					/ diffTime * 10000;
+			
 			if (speed > 180) {
 				shakeCount++;
 				if (shakeCount == 4 && !shakeMercy) {
@@ -400,9 +423,14 @@ public class GameActivity extends Activity implements SensorEventListener {
 					Log.d("SHAKEMERCY", "true " + shakeMercy);
 				}
 			}
+			
+			
+			
 			mLastX = x;
 			mLastY = y;
 			mLastZ = z;
+		
+
 		}
 
 	}
@@ -411,6 +439,16 @@ public class GameActivity extends Activity implements SensorEventListener {
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 		// TODO Auto-generated method stub
 
+	}
+
+	void randomButton() {
+		
+		Collections.shuffle(lp);
+		
+		((Button) findViewById(R.id.pink)).setLayoutParams(lp.get(0));
+		((Button) findViewById(R.id.purple)).setLayoutParams(lp.get(1));
+		((Button) findViewById(R.id.green)).setLayoutParams(lp.get(2));
+		((Button) findViewById(R.id.blue)).setLayoutParams(lp.get(3));
 	}
 
 }

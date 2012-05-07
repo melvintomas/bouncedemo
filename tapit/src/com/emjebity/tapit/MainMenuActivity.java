@@ -19,6 +19,7 @@ public class MainMenuActivity extends Activity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Log.d("LOAD", ""+getApplicationContext());
 		Log.d("MAINMENU", "Success: ");
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		super.onCreate(savedInstanceState);

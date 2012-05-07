@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/lib/com.google.ads"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background"
@@ -12,46 +13,73 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="54dp"
+        android:layout_margin="50dp"
         android:text="Choose Difficulty!"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
+
     <Button
         android:id="@+id/practice"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:onClick="practice"
         android:text="PRACTICE" />
 
     <Button
         android:id="@+id/easy"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/practice"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:onClick="easy"
         android:text="EASY" />
 
     <Button
         android:id="@+id/medium"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:onClick="medium"
         android:text="MEDIUM" />
 
     <Button
         android:id="@+id/hard"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="5dp"
+        android:layout_weight="1"
+        android:gravity="center"
         android:onClick="hard"
         android:text="HARD" />
 
-    
 
+    <RelativeLayout
+        android:id="@+id/relativeLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:layout_weight="1"
+        android:gravity="bottom|center_horizontal" >
+
+        <com.google.ads.AdView
+            android:id="@+id/ad"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            ads:adSize="BANNER"
+            ads:adUnitId="a14f9c5c29b10a0"
+            ads:loadAdOnCreate="true" >
+        </com.google.ads.AdView>
+    </RelativeLayout>
+    
 </LinearLayout>

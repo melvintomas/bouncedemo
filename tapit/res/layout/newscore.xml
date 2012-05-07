@@ -38,19 +38,19 @@
 
     <Button
         android:id="@+id/save"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:onClick="save"
         android:text="Save" />
 
     <Button
         android:id="@+id/facebook"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
         android:onClick="post"
         android:text="Post to Facebook" />
     

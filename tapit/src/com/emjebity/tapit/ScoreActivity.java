@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.android.DialogError;
@@ -47,7 +46,7 @@ public class ScoreActivity extends Activity {
 				"\\|");
 		position = getIntent().getExtras().getInt("position");
 		Log.d("SCOREACTIVITY", " " + position);
-		TextView input = (EditText) findViewById(R.id.scoreinput);
+		
 
 		// make room for new score
 		if (position == 1) {
@@ -100,7 +99,7 @@ public class ScoreActivity extends Activity {
 	public void post(View v) {
 
 		mPrefs = getPreferences(MODE_PRIVATE);
-		String access_token = mPrefs.getString("access_token", null);
+		String access_token = mPrefs.getString("access_token1", null);
 		long expires = mPrefs.getLong("access_expires", 0);
 		if (access_token != null) {
 			facebook.setAccessToken(access_token);
@@ -110,57 +109,115 @@ public class ScoreActivity extends Activity {
 		}
 
 		if (!facebook.isSessionValid()) {
-			facebook.authorize(this, new String[] {}, new DialogListener() {
-				@Override
-				public void onComplete(Bundle values) {
-					SharedPreferences.Editor editor = mPrefs.edit();
-					editor.putString("access_token", facebook.getAccessToken());
-					editor.putLong("access_expires",
-							facebook.getAccessExpires());
-					editor.commit();
-					Log.d("onComplete", "" + values);
-				}
+			facebook.authorize(this, new String[] { "publish_stream" },
+					new DialogListener() {
+						@Override
+						public void onComplete(Bundle values) {
+							SharedPreferences.Editor editor = mPrefs.edit();
+							editor.putString("access_token",
+									facebook.getAccessToken());
+							editor.putLong("access_expires",
+									facebook.getAccessExpires());
+							editor.commit();
+							Log.d("onComplete", "" + values);
 
-				@Override
-				public void onFacebookError(FacebookError error) {
-					Log.d("onFacebookError", "" + error);
-				}
+							try {
 
-				@Override
-				public void onError(DialogError e) {
-					Log.d("onError", "" + e);
-				}
+								Bundle parameters = new Bundle();
+								parameters.putString("message",
+										"I just earned " + score[position + 4]
+												+ " points on " + getIntent().getExtras().getString("difficultyString") + " mode. A new high score!");
+								parameters.putString("icon",
+										"http://emjebity.com/images/icon.gif");
+								parameters
+										.putString("picture",
+												"http://emjebity.com/images/images.gif");
+								parameters
+										.putString(
+												"description",
+												"How fast can you react before time runs out? TAP IT, DOUBLE TAP IT, AND SHAKE IT as fast as you can! Post your high scores to Facebook and challenge your friends. Are you the next Tap It! master?");
+								parameters
+										.putString("link",
+												"https://play.google.com/store/apps/details?id=com.emjebity.tapit");
+								parameters.putString("caption",
+										"Try and beat my score!");
+								parameters.putString("name", "Tap it!");
+								String request = facebook.request("me/feed",
+										parameters, "POST");
 
-				@Override
-				public void onCancel() {
-					Log.d("onCancel", "cancel");
-				}
-			});
+								Log.d("facebook", request);
+								((Button) findViewById(R.id.facebook))
+										.setText("Posted Successfully");
+								((Button) findViewById(R.id.facebook))
+										.setClickable(false);
+								// saveScore();
+
+							} catch (Exception e) {
+								e.printStackTrace();
+								((Button) findViewById(R.id.facebook))
+										.setText("Posting failed. Try again?");
+
+							}
+						}
+
+						@Override
+						public void onFacebookError(FacebookError error) {
+							Log.d("onFacebookError", "" + error);
+							((Button) findViewById(R.id.facebook))
+							.setText("Posting failed. Try again?");
+						}
+
+						@Override
+						public void onError(DialogError e) {
+							Log.d("onError", "" + e);
+							((Button) findViewById(R.id.facebook))
+							.setText("Posting failed. Try again?");
+						}
+
+						@Override
+						public void onCancel() {
+							Log.d("onCancel", "cancel");
+							((Button) findViewById(R.id.facebook))
+							.setText("Posting failed. Try again?");
+						}
+					});
+		} else {
+
+			try {
+
+				Bundle parameters = new Bundle();
+				parameters.putString("message", "I just earned "
+						+ score[position + 4] + " points on " + getIntent().getExtras().getString("difficultyString") + " mode. A new high score!");
+				parameters.putString("icon",
+						"http://emjebity.com/images/icon.gif");
+				parameters.putString("picture",
+						"http://emjebity.com/images/images.gif");
+				parameters
+						.putString(
+								"description",
+								"How fast can you react before time runs out? TAP IT, DOUBLE TAP IT, AND SHAKE IT as fast as you can! Post your high scores to Facebook and challenge your friends. Are you the next Tap It! master?");
+				parameters
+						.putString("link",
+								"https://play.google.com/store/apps/details?id=com.emjebity.tapit");
+				parameters.putString("caption", "Try and beat my score!");
+				parameters.putString("name", "Tap it!");
+				String request = facebook
+						.request("me/feed", parameters, "POST");
+
+				Log.d("facebook", request);
+				((Button) findViewById(R.id.facebook))
+						.setText("Posted Successfully");
+				((Button) findViewById(R.id.facebook)).setClickable(false);
+				// saveScore();
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				((Button) findViewById(R.id.facebook))
+						.setText("Posting failed. Try again?");
+
+			}
+
 		}
-
-		try {
-
-			Bundle parameters = new Bundle();
-			parameters.putString("message", "I just earned "
-					+ score[position + 4] + " points. A new high score!");
-			parameters.putString("icon", "http://emjebity.com/images/icon.gif");
-			parameters.putString("picture",
-					"http://emjebity.com/images/images.gif");
-			parameters
-					.putString(
-							"description",
-							"Tap it! The fun reaction game! How fast are you? Can you tap it! double tap! shake it before the time ticks down? Save your high score, share it with Facebook and see who can be the Tap it! Master.");
-			parameters.putString("link", "https://play.google.com/store/apps/details?id=com.emjebity.tapit");
-			parameters.putString("caption", "Try and beat my score!");
-			parameters.putString("name", "Tap it!");
-			String request = facebook.request("me/feed", parameters, "POST");
-
-			Log.d("facebook", request);
-			// saveScore();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		((Button) findViewById(R.id.facebook)).setClickable(false);
 
 	}
 

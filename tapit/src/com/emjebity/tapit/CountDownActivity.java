@@ -1,6 +1,6 @@
 package com.emjebity.tapit;
 
-
+import java.util.HashMap;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -13,17 +13,18 @@ import android.util.Log;
 import android.view.View;
 
 public class CountDownActivity extends Activity {
-	
-	
-	SoundPool soundPool;
-	int soundShort;
-	int soundLong;
-	
-	//prevent user from going back on count down
+
+	//SoundPool soundPool;
+	//int soundShort;
+	//int soundLong;
+
+
+	// prevent user from going back on count down
 	@Override
-	public void onBackPressed() {				
+	public void onBackPressed() {
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -31,10 +32,14 @@ public class CountDownActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.countdown);
 		
-		soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-		soundShort = soundPool
-				.load(getApplicationContext(), R.raw.shortbuzz, 1);
-		soundLong = soundPool.load(getApplicationContext(), R.raw.longbuzz, 1);
+
+		//Log.d("LOADS", soundPool.toString());
+		/*
+		 * soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+		 * soundShort = soundPool .load(getApplicationContext(),
+		 * R.raw.shortbuzz, 1); soundLong =
+		 * soundPool.load(getApplicationContext(), R.raw.longbuzz, 1);
+		 */
 		new Timer().execute();
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
@@ -43,8 +48,7 @@ public class CountDownActivity extends Activity {
 
 		@Override
 		protected String doInBackground(String... params) {
-			
-			
+
 			for (int i = 0; i <= 4; i++) {
 				publishProgress(i);
 				try {
@@ -62,25 +66,29 @@ public class CountDownActivity extends Activity {
 		@Override
 		protected void onProgressUpdate(Integer... values) {
 			if (values[0] == 0) {
-				soundPool.play(soundShort, 1, 1, 1, 0, 1);
+				// soundPool.play(soundShort, 1, 1, 1, 0, 1);
+				Sound.playShort();
 				findViewById(R.id.three).setVisibility(View.VISIBLE);
 			}
 
 			if (values[0] == 1) {
-				soundPool.play(soundShort, 1, 1, 1, 0, 1);
+				// soundPool.play(soundShort, 1, 1, 1, 0, 1);
+				Sound.playShort();
 				findViewById(R.id.three).setVisibility(View.GONE);
 				findViewById(R.id.two).setVisibility(View.VISIBLE);
 			}
 
 			if (values[0] == 2) {
-				soundPool.play(soundShort, 1, 1, 1, 0, 1);
+				// soundPool.play(soundShort, 1, 1, 1, 0, 1);
+				Sound.playShort();
 				findViewById(R.id.two).setVisibility(View.GONE);
 				findViewById(R.id.one).setVisibility(View.VISIBLE);
 
 			}
 
 			if (values[0] == 3) {
-				soundPool.play(soundLong, 1, 1, 1, 0, 1);
+				// soundPool.play(soundLong, 1, 1, 1, 0, 1);
+				Sound.playLong();
 				findViewById(R.id.one).setVisibility(View.GONE);
 				findViewById(R.id.go).setVisibility(View.VISIBLE);
 			}

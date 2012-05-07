@@ -16,7 +16,7 @@ public class DifficultyActivity extends Activity {
 
 	final int easySpeed = 3000; // milliseconds
 	final int mediumSpeed = 2000; // milliseconds
-	final int hardSpeed = 1500; // milliseconds
+	final int hardSpeed = 1000; // milliseconds
 	int userSpeed = 0;
 	Animation pushLeftIn;
 

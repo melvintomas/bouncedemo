@@ -17,10 +17,14 @@ public class TapitActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
+		Sound.loadSound(getApplicationContext());
+		Log.d("LOAD", ""+getApplicationContext());
 		setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.emjebityscreen);
 		new Timer().execute();
+		Sound.loadSound(getApplicationContext());
+		
 		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 	}
 	

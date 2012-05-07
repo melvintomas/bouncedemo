@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="About"
+        android:layout_weight="1"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -19,12 +20,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
         android:padding="20dp"
+        android:layout_weight="3"
         />
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="2"
         android:gravity="center" >
 
         <ImageView
@@ -32,6 +35,7 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:src="@drawable/emjebity_logo" />
 
         <ImageView
@@ -39,15 +43,29 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
+            android:layout_weight="1"
             android:src="@drawable/meaghanwho_logo" />
     </LinearLayout>
     
     <Button
         android:id="@+id/backA"
-        android:layout_width="220dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:layout_weight="1"
         android:onClick="backA"
         android:text="BACK" />
+    
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        android:gravity="right"
+        android:text="1.7"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
 
 </LinearLayout>

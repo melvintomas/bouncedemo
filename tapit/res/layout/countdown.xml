@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:text="1..."
+        android:layout_weight="1"
         android:textSize="150dp" 
 		android:visibility="invisible" />
 
@@ -22,6 +23,7 @@
         android:layout_centerHorizontal="true"
         android:text="GO!"
         android:textSize="180dp"
+        android:layout_weight="1"
         android:visibility="invisible" />
 
     <TextView
@@ -31,6 +33,7 @@
         android:layout_centerHorizontal="true"
         android:text="2..."
         android:textSize="150dp" 
+        android:layout_weight="1"
         android:visibility="invisible" />
 
     <TextView
@@ -41,6 +44,7 @@
         android:layout_centerHorizontal="true"
         android:text="3..."
         android:textSize="150dp"
+        android:layout_weight="1"
         android:visibility="invisible" />
 
 </RelativeLayout>

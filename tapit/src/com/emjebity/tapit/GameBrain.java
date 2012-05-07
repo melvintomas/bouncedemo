@@ -30,7 +30,7 @@ public class GameBrain {
 			difficultyText = "MEDIUM";
 			pointValue = 40;
 		}
-		if (difficulty == 1500) {
+		if (difficulty == 1000) {
 			difficultyText = "HARD";
 			pointValue = 50;
 		}
@@ -131,7 +131,7 @@ public class GameBrain {
 	}
 	
 	void increaseSpeed(int speed){
-		if (difficulty - speed > 800);
+		if (difficulty - speed > 600);
 			this.speed += speed;
 	}
 	
