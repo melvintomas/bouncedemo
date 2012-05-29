@@ -119,7 +119,7 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		}
 	}
 
-	@Override
+	//@Override
 	public void onSensorChanged(SensorEvent event) {
 		float x = event.values[0];
 		float y = event.values[1];
@@ -134,7 +134,7 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		horizontalSpeed = (int) x;
 	}
 
-	@Override
+	//@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 	}
 }
