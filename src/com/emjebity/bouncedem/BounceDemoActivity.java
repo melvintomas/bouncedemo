@@ -35,19 +35,19 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		coco = (ImageView) findViewById(R.id.imageView1);
-
-		height = getWindowManager().getDefaultDisplay().getHeight() - 60;
-		 width = getWindowManager().getDefaultDisplay().getWidth();
-		
-		/* Set default speed */
-		speed = 20;
-		horizontalSpeed = 0;
-		bounceHeight = 500;
-
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
+		coco = (ImageView) findViewById(R.id.imageView1);
+
+		height = getWindowManager().getDefaultDisplay().getHeight() - 60;
+		width = getWindowManager().getDefaultDisplay().getWidth();
+		
+		/* Set default values */
+		speed = 20;
+		horizontalSpeed = 0;
+		bounceHeight = 500;
+		
 		new Timer().execute();
 	}
 	
