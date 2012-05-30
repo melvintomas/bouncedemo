@@ -24,7 +24,6 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 	int right;
 	int left;
 	int bounceHeight;
-	int tempBounceHeight;
 	int horizontalSpeed;
 	SensorManager sensorManager;
 	Sensor sensor;
@@ -35,28 +34,31 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-
+		
 		coco = (ImageView) findViewById(R.id.imageView1);
 		height = getWindowManager().getDefaultDisplay().getHeight() - 60;
 		width = getWindowManager().getDefaultDisplay().getWidth();
-		speed = 5;
+		speed = 20;
 		horizontalSpeed = 0;
-		bounceHeight = 200;
-		tempBounceHeight = 0;
+		bounceHeight = 500;
+
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
 		new Timer().execute();
 	}
-
+	
+	/** On the pause -- do this */
 	@Override
 	protected void onPause() {
 		sensorManager.unregisterListener(this);
 		super.onPause();
 	}
 
+	/** When the application resumes back up */
 	@Override
 	protected void onResume() {
+		/* Listen to the sensors again */
 		sensorManager.registerListener(this, sensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
 		super.onResume();
@@ -79,11 +81,14 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
+			/*
 			Log.d("coco",
 					"width = " + width + ", height = " + height + ", left = "
 							+ coco.getLeft() + ", top = " + coco.getTop()
 							+ ", right = " + coco.getRight() + ", bottom = "
 							+ coco.getBottom() + ", speed: " + speed);
+			*/
+
 			bottom = coco.getBottom();
 			top = coco.getTop();
 			right = coco.getRight();
@@ -128,9 +133,9 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		((TextView) findViewById(R.id.textView1)).setText("x: " + x);
 		((TextView) findViewById(R.id.textView2)).setText("y: " + y);
 		((TextView) findViewById(R.id.textView3)).setText("z: " + z);
-
 	
 
+		/* Set the horizontal speed to the x sensor value */
 		horizontalSpeed = (int) x;
 	}
 
