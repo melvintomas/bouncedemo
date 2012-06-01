@@ -8,25 +8,15 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class BounceDemoActivity extends Activity implements SensorEventListener {
 
-	ImageView coco;
-	int[] cocoCoordinates;
-	int height;
-	int width;
-	int speed;
-	int top;
-	int bottom;
-	int right;
-	int left;
-	int bounceHeight;
-	int horizontalSpeed;
-	SensorManager sensorManager;
-	Sensor sensor;
+	private Bouncer bouncer;
+	private int screenHeight, screenWidth;
+	private SensorManager sensorManager;
+	private Sensor sensor;
 
 
 	/** Called when the activity is first created. */
@@ -35,18 +25,14 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
 		
-		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
-		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+		this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+		this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+    this.screenHeight = getWindowManager().getDefaultDisplay().getHeight() - 60;
+    this.screenWidth = getWindowManager().getDefaultDisplay().getWidth();
+    
+		this.bouncer = new Bouncer((ImageView) findViewById(R.id.imageView1), this.screenHeight, this.screenWidth, 10, 100);
 
-		coco = (ImageView) findViewById(R.id.imageView1);
 
-		height = getWindowManager().getDefaultDisplay().getHeight() - 60;
-		width = getWindowManager().getDefaultDisplay().getWidth();
-		
-		/* Set default values */
-		speed = 20;
-		horizontalSpeed = 0;
-		bounceHeight = 500;
 		
 		new Timer().execute();
 	}
@@ -62,7 +48,7 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 	@Override
 	protected void onResume() {
 		/* Listen to the sensors again */
-		sensorManager.registerListener(this, sensor,
+		this.sensorManager.registerListener(this, sensor,
 				SensorManager.SENSOR_DELAY_NORMAL);
 		super.onResume();
 	}
@@ -84,44 +70,11 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			/*
-			Log.d("coco",
-					"width = " + width + ", height = " + height + ", left = "
-							+ coco.getLeft() + ", top = " + coco.getTop()
-							+ ", right = " + coco.getRight() + ", bottom = "
-							+ coco.getBottom() + ", speed: " + speed);
-			*/
 
-			bottom = coco.getBottom();
-			top = coco.getTop();
-			right = coco.getRight();
-			left = coco.getLeft();
+			bouncer.bounce();
 			
-			// bounce
-			if (bottom >= height)
-				speed = -Math.abs(speed);
-			
-			
-
-			// start falling
-			if (coco.getTop() <= height / 2)
-				speed = +Math.abs(speed);
-
-			// update location
-			coco.layout(coco.getLeft() - horizontalSpeed,
-					coco.getTop() + speed, coco.getRight() - horizontalSpeed,
-					coco.getBottom() + speed);
-			
-			if (coco.getLeft() < 0) {
-				coco.layout(coco.getLeft(), coco.getTop(), coco.getRight(),
-						coco.getBottom());
-			} else if (coco.getRight() > width) {
-				coco.layout(coco.getLeft(), coco.getTop(), coco.getRight(),
-						coco.getBottom());
-			}
-			
-			// refresh coconut
-			coco.invalidate();
+			//Refresh Bouncer
+			bouncer.getImage().invalidate();
 
 			super.onProgressUpdate(values);
 		}
@@ -139,7 +92,7 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 	
 
 		/* Set the horizontal speed to the x sensor value */
-		horizontalSpeed = (int) x;
+		this.bouncer.setHorizontalSpeed((int) x);
 	}
 
 	//@Override
