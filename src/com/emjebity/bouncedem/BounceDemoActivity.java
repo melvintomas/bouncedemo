@@ -27,12 +27,10 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		
 		this.sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		this.sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-    this.screenHeight = getWindowManager().getDefaultDisplay().getHeight() - 60;
+    this.screenHeight = Math.round(getWindowManager().getDefaultDisplay().getHeight() * 0.90f);
     this.screenWidth = getWindowManager().getDefaultDisplay().getWidth();
     
-		this.bouncer = new Bouncer((ImageView) findViewById(R.id.imageView1), this.screenHeight, this.screenWidth, 10, 100);
-
-
+		this.bouncer = new Bouncer((ImageView) findViewById(R.id.imageView1), this.screenHeight, this.screenWidth, 1, 20);
 		
 		new Timer().execute();
 	}
@@ -89,7 +87,6 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		((TextView) findViewById(R.id.textView1)).setText("x: " + x);
 		((TextView) findViewById(R.id.textView2)).setText("y: " + y);
 		((TextView) findViewById(R.id.textView3)).setText("z: " + z);
-	
 
 		/* Set the horizontal speed to the x sensor value */
 		this.bouncer.setHorizontalSpeed((int) x);

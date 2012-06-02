@@ -15,6 +15,16 @@ public class Bouncer {
   private ImageView image;
   
   /**
+   * The height of the image.
+   */
+  private int imageHeight;
+  
+  /**
+   * The width of the image.  
+   */
+  private int imageWidth;
+  
+  /**
    * The height of the screen.
    */
   private int screenHeight;
@@ -76,21 +86,25 @@ public class Bouncer {
     this.left = this.image.getLeft();
     this.right = this.image.getRight();
     
+    this.imageHeight = image.getHeight();
+    this.imageWidth = image.getWidth();
+    
     // Bounce
-    if (this.bottom >= this.screenHeight) {
+    if (this.bottom >= this.screenHeight) {      
       this.currentVerticalSpeed = -Math.abs(this.currentVerticalSpeed);
     }
     
     else {  
-      // Fall
+      // Fall      
+      this.currentVerticalSpeed += Math.abs(this.accel);
       int magnitude = Math.abs(this.currentVerticalSpeed);
-      if(magnitude < this.terminalVelocity) {
-        if(this.terminalVelocity - magnitude == this.accel) {
+      if(magnitude > this.terminalVelocity) {
+        if(this.currentVerticalSpeed > 0) {
           this.currentVerticalSpeed = this.terminalVelocity;
         }
-      
+        
         else {
-          this.currentVerticalSpeed += Math.abs(this.accel);
+          this.currentVerticalSpeed = -this.terminalVelocity;
         }
       }
     }
@@ -102,16 +116,21 @@ public class Bouncer {
     this.right -= this.horizontalSpeed;
     
     // Adjust new location for screen boundaries.
-    if (this.left < 0) {
+    if (this.left <= 0) {
       this.left = 0;
-    } else if (this.right > this.screenWidth) {
+      this.right = this.imageWidth;
+    } else if (this.right >= this.screenWidth) {
       this.right = this.screenWidth;
+      this.left = this.screenWidth - this.imageWidth;
     }
     
-    if(this.top < 0) {
+    if(this.top <= 0) {
       this.top = 0;
-    } else if (this.bottom > this.screenHeight) {
+      this.bottom = this.imageHeight;
+      this.currentVerticalSpeed = 0;
+    } else if (this.bottom >= this.screenHeight) {
       this.bottom = this.screenHeight;
+      this.top = this.screenHeight - this.imageHeight;
     }
     
     // Update image with new location.
