@@ -15,6 +15,7 @@ import android.widget.TextView;
 public class BounceDemoActivity extends Activity implements SensorEventListener {
 
 	ImageView coco;
+	ImageView back;
 	int[] cocoCoordinates;
 	int height;
 	int width;
@@ -28,29 +29,43 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 	SensorManager sensorManager;
 	Sensor sensor;
 
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		
+		// back.scrollBy(0, 100);
 		sensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
 		sensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
 
 		coco = (ImageView) findViewById(R.id.imageView1);
+		back = (ImageView) findViewById(R.id.imageView2);
+		
 
 		height = getWindowManager().getDefaultDisplay().getHeight() - 60;
 		width = getWindowManager().getDefaultDisplay().getWidth();
 		
+		Log.d("coco",
+				"left = " + back.getLeft() + ", top = " + back.getTop()
+						+ ", right = " + back.getRight() + ", bottom = "
+						+ back.getBottom() + ", speed: " + speed);
+		//back.layout(0, -8000, width, 8000);
+		//back.setMinimumWidth(width);
+		
+		back.scrollTo(0, 500);
+		back.invalidate();
+		Log.d("coco",
+				"left = " + back.getLeft() + ", top = " + back.getTop()
+						+ ", right = " + back.getRight() + ", bottom = "
+						+ back.getBottom() + ", speed: " + speed);
 		/* Set default values */
-		speed = 20;
+		speed = 5;
 		horizontalSpeed = 0;
 		bounceHeight = 500;
-		
+
 		new Timer().execute();
 	}
-	
+
 	/** On the pause -- do this */
 	@Override
 	protected void onPause() {
@@ -84,24 +99,21 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 
 		@Override
 		protected void onProgressUpdate(Integer... values) {
-			/*
-			Log.d("coco",
-					"width = " + width + ", height = " + height + ", left = "
-							+ coco.getLeft() + ", top = " + coco.getTop()
-							+ ", right = " + coco.getRight() + ", bottom = "
-							+ coco.getBottom() + ", speed: " + speed);
-			*/
 
+			/*
+			 * Log.d("coco", "width = " + width + ", height = " + height +
+			 * ", left = " + coco.getLeft() + ", top = " + coco.getTop() +
+			 * ", right = " + coco.getRight() + ", bottom = " + coco.getBottom()
+			 * + ", speed: " + speed);
+			 */
 			bottom = coco.getBottom();
 			top = coco.getTop();
 			right = coco.getRight();
 			left = coco.getLeft();
-			
+
 			// bounce
 			if (bottom >= height)
 				speed = -Math.abs(speed);
-			
-			
 
 			// start falling
 			if (coco.getTop() <= height / 2)
@@ -111,7 +123,7 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 			coco.layout(coco.getLeft() - horizontalSpeed,
 					coco.getTop() + speed, coco.getRight() - horizontalSpeed,
 					coco.getBottom() + speed);
-			
+
 			if (coco.getLeft() < 0) {
 				coco.layout(coco.getLeft(), coco.getTop(), coco.getRight(),
 						coco.getBottom());
@@ -119,15 +131,17 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 				coco.layout(coco.getLeft(), coco.getTop(), coco.getRight(),
 						coco.getBottom());
 			}
-			
+
 			// refresh coconut
+			back.scrollBy(0, -1);
+			back.invalidate();
 			coco.invalidate();
 
 			super.onProgressUpdate(values);
 		}
 	}
 
-	//@Override
+	// @Override
 	public void onSensorChanged(SensorEvent event) {
 		float x = event.values[0];
 		float y = event.values[1];
@@ -136,13 +150,12 @@ public class BounceDemoActivity extends Activity implements SensorEventListener 
 		((TextView) findViewById(R.id.textView1)).setText("x: " + x);
 		((TextView) findViewById(R.id.textView2)).setText("y: " + y);
 		((TextView) findViewById(R.id.textView3)).setText("z: " + z);
-	
 
 		/* Set the horizontal speed to the x sensor value */
 		horizontalSpeed = (int) x;
 	}
 
-	//@Override
+	// @Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
 	}
 }
